@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EMMANUEL JOHN LELO |Full-Stack Data Scientist & MLOps Engineer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --teal:    #0d9488;
+      --teal2:   #14b8a6;
+      --teal3:   #99f6e4;
+      --teal-lt: #e6faf8;
+      --dark:    #0f172a;
+      --dark2:   #1e293b;
+      --dark3:   #334155;
+      --light:   #f1f5f9;
+      --white:   #ffffff;
+      --muted:   #94a3b8;
+      --mid:     #475569;
+      --border:  #e2e8f0;
+      --accent:  #f59e0b;
+      --font:    'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); background: var(--dark); color: var(--light); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark2); }
+    ::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 3px; }
+
+    /* ══════════════════════════════════════════
+       PAGE SYSTEM — portfolio / resume / cv
+    ══════════════════════════════════════════ */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ══════════════════════════════════════════
+       TOP NAV
+    ══════════════════════════════════════════ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 999;
+      background: rgba(15,23,42,0.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(13,148,136,0.2);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 36px; height: 62px;
+    }
+    .nav-logo {
+      font-size: 1.2rem; font-weight: 800;
+      background: linear-gradient(90deg, var(--teal2), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-center { display: flex; gap: 6px; }
+    .nav-tab {
+      padding: 7px 18px; border-radius: 8px; font-size: .8rem; font-weight: 600;
+      letter-spacing: .4px; cursor: pointer; border: none;
+      background: transparent; color: var(--muted); transition: all .2s;
+    }
+    .nav-tab:hover { color: var(--teal2); background: rgba(13,148,136,.08); }
+    .nav-tab.active {
+      background: linear-gradient(135deg, var(--teal), var(--teal2));
+      color: #fff; box-shadow: 0 3px 12px rgba(13,148,136,.4);
+    }
+    .nav-right { display: flex; gap: 10px; align-items: center; }
+    .nav-links-small { display: flex; gap: 18px; list-style: none; }
+    .nav-links-small a { font-size: .78rem; color: var(--muted); font-weight: 500; transition: color .2s; }
+    .nav-links-small a:hover { color: var(--teal2); }
+    .print-btn-nav {
+      background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.4);
+      color: var(--accent); padding: 7px 16px; border-radius: 8px;
+      font-size: .78rem; font-weight: 700; cursor: pointer; transition: all .2s;
+      display: none;
+    }
+    .print-btn-nav:hover { background: rgba(245,158,11,.25); }
+    .print-btn-nav.visible { display: block; }
+
+    /* ══════════════════════════════════════════
+       SHARED SECTION HELPERS
+    ══════════════════════════════════════════ */
+    section { padding: 90px 20px; }
+    .section-header { text-align: center; margin-bottom: 52px; }
+    .section-label { display: inline-block; margin-bottom: 10px; color: var(--teal2); font-size: .72rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; }
+    .section-title { font-size: clamp(1.7rem, 3.5vw, 2.3rem); font-weight: 800; color: var(--white); }
+    .section-title span { color: var(--teal2); }
+    .section-line { width: 44px; height: 3px; margin: 14px auto 0; background: linear-gradient(90deg, var(--teal), var(--accent)); border-radius: 2px; }
+    .fade-up { opacity: 0; transform: translateY(26px); transition: opacity .6s ease, transform .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+    .btn { padding: 12px 28px; border-radius: 8px; font-size: .88rem; font-weight: 600; cursor: pointer; transition: all .25s; border: none; display: inline-flex; align-items: center; gap: 8px; }
+    .btn-primary { background: linear-gradient(135deg, var(--teal), var(--teal2)); color: #fff; box-shadow: 0 4px 18px rgba(13,148,136,.4); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(13,148,136,.55); }
+    .btn-outline { background: transparent; border: 1.5px solid var(--teal); color: var(--teal2); }
+    .btn-outline:hover { background: rgba(13,148,136,.1); transform: translateY(-2px); }
+    .tag { padding: 5px 13px; border-radius: 99px; font-size: .77rem; font-weight: 600; background: rgba(13,148,136,.12); color: var(--teal2); border: 1px solid rgba(13,148,136,.22); transition: all .2s; }
+    .tag:hover { background: rgba(13,148,136,.25); }
+    .tag.accent { background: rgba(245,158,11,.1); color: var(--accent); border-color: rgba(245,158,11,.28); }
+
+    /* ══════════════════════════════════════════
+       ██ PAGE 1 — PORTFOLIO
+    ══════════════════════════════════════════ */
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      text-align: center; position: relative; overflow: hidden; padding-top: 62px;
+      background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(13,148,136,.18) 0%, transparent 70%), var(--dark);
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(13,148,136,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(13,148,136,.055) 1px, transparent 1px);
+      background-size: 40px 40px; animation: gridMove 20s linear infinite;
+    }
+    @keyframes gridMove { from { background-position: 0 0; } to { background-position: 40px 40px; } }
+    .dot { position: absolute; border-radius: 50%; background: var(--teal); opacity: .11; animation: flt 8s ease-in-out infinite; }
+    .dot:nth-child(1){ width:260px;height:260px;top:-80px;right:-60px;animation-delay:0s; }
+    .dot:nth-child(2){ width:160px;height:160px;bottom:60px;left:-40px;animation-delay:3s; }
+    .dot:nth-child(3){ width:80px;height:80px;bottom:140px;right:120px;animation-delay:1.5s; }
+    @keyframes flt { 0%,100%{transform:translateY(0) scale(1);} 50%{transform:translateY(-20px) scale(1.05);} }
+    .hero-inner { position: relative; z-index: 1; max-width: 820px; padding: 20px; }
+    .hero-badge { display: inline-block; margin-bottom: 20px; background: rgba(13,148,136,.15); border: 1px solid rgba(13,148,136,.4); color: var(--teal2); font-size: .76rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 99px; }
+    .hero-name { font-size: clamp(2.5rem, 6vw, 4.4rem); font-weight: 800; line-height: 1.1; background: linear-gradient(135deg, var(--white) 30%, var(--teal3) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 14px; }
+    .hero-title { font-size: clamp(.95rem, 2.5vw, 1.25rem); color: var(--muted); font-weight: 400; margin-bottom: 14px; }
+    .hero-title span { color: var(--teal2); font-weight: 600; }
+    .hero-remote { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 26px; background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.32); color: var(--accent); font-size: .78rem; font-weight: 700; letter-spacing: 1px; padding: 6px 18px; border-radius: 99px; }
+    .hero-desc { font-size: .95rem; color: var(--muted); max-width: 560px; margin: 0 auto 38px; line-height: 1.78; }
+    .hero-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* ABOUT */
+    #about { background: var(--dark2); }
+    .about-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+    .about-avatar-wrap { display: flex; justify-content: center; }
+    .about-avatar { width: 190px; height: 190px; border-radius: 50%; background: linear-gradient(135deg, var(--teal), var(--dark3)); display: flex; align-items: center; justify-content: center; font-size: 4.8rem; border: 4px solid rgba(13,148,136,.4); box-shadow: 0 0 40px rgba(13,148,136,.22); }
+    .about-text h3 { font-size: 1.4rem; font-weight: 700; color: var(--white); margin-bottom: 14px; }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 18px; font-size: .94rem; }
+    .about-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 22px; }
+    .info-item { display: flex; flex-direction: column; gap: 2px; }
+    .info-label { font-size: .7rem; color: var(--teal2); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .info-value { font-size: .88rem; color: var(--light); }
+    .stats-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 36px; padding: 36px; background: var(--dark); border-radius: 18px; border: 1px solid rgba(13,148,136,.12); max-width: 880px; margin: 40px auto 0; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 2.1rem; font-weight: 800; color: var(--teal2); line-height: 1; }
+    .stat-label { font-size: .76rem; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 1px; }
+    .remote-banner { max-width: 840px; margin: 40px auto 0; background: linear-gradient(135deg, rgba(13,148,136,.1), rgba(245,158,11,.07)); border: 1px solid rgba(13,148,136,.25); border-radius: 16px; padding: 24px 32px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .remote-banner-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .remote-banner-text h4 { font-size: .96rem; font-weight: 700; color: var(--white); margin-bottom: 5px; }
+    .remote-banner-text p { font-size: .85rem; color: var(--muted); line-height: 1.6; }
+    .remote-banner-text p strong { color: var(--teal2); }
+
+    /* SKILLS */
+    #skills { background: var(--dark); }
+    .skills-container { max-width: 1080px; margin: 0 auto; }
+    .skills-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 24px; }
+    .skill-card { background: var(--dark2); border: 1px solid rgba(13,148,136,.14); border-radius: 16px; padding: 26px; transition: transform .25s, border-color .25s, box-shadow .25s; }
+    .skill-card:hover { transform: translateY(-4px); border-color: rgba(13,148,136,.4); box-shadow: 0 12px 36px rgba(13,148,136,.1); }
+    .skill-card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .skill-icon { width: 42px; height: 42px; border-radius: 10px; background: rgba(13,148,136,.15); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+    .skill-card-header h3 { font-size: .95rem; font-weight: 700; color: var(--white); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    /* PROFICIENCY */
+    #proficiency { background: var(--dark2); }
+    .prof-grid { max-width: 880px; margin: 0 auto; display: grid; gap: 18px; }
+    .prof-header { display: flex; justify-content: space-between; margin-bottom: 7px; }
+    .prof-name { font-size: .88rem; font-weight: 600; color: var(--white); }
+    .prof-pct { font-size: .8rem; color: var(--teal2); font-weight: 700; }
+    .prof-bar { height: 6px; background: var(--dark3); border-radius: 99px; overflow: hidden; }
+    .prof-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--teal), var(--teal2)); width: 0; transition: width 1.4s cubic-bezier(.4,0,.2,1); }
+
+    /* EXPERIENCE */
+    #experience { background: var(--dark); }
+    .timeline { max-width: 780px; margin: 0 auto; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--teal), transparent); }
+    .timeline-item { padding: 0 0 42px 58px; position: relative; }
+    .timeline-dot { position: absolute; left: 12px; top: 4px; width: 18px; height: 18px; border-radius: 50%; background: var(--teal); border: 3px solid var(--dark); box-shadow: 0 0 0 3px rgba(13,148,136,.3); }
+    .timeline-dot.current { background: var(--accent); box-shadow: 0 0 0 3px rgba(245,158,11,.3); }
+    .timeline-date { font-size: .73rem; font-weight: 700; color: var(--teal2); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 5px; }
+    .timeline-role { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+    .badge-current { display: inline-block; margin-left: 10px; font-size: .67rem; font-weight: 700; letter-spacing: 1px; background: rgba(245,158,11,.15); color: var(--accent); border: 1px solid rgba(245,158,11,.35); padding: 2px 10px; border-radius: 99px; vertical-align: middle; }
+    .timeline-company { font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
+    .timeline-desc { font-size: .88rem; color: var(--muted); line-height: 1.75; }
+
+    /* PROJECTS */
+    #projects { background: var(--dark2); }
+    .projects-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 22px; }
+    .project-card { background: var(--dark); border: 1px solid rgba(13,148,136,.12); border-radius: 16px; padding: 26px; transition: all .28s; position: relative; overflow: hidden; }
+    .project-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(13,148,136,.05), transparent); opacity: 0; transition: opacity .3s; }
+    .project-card:hover { transform: translateY(-5px); border-color: rgba(13,148,136,.35); box-shadow: 0 14px 38px rgba(0,0,0,.28); }
+    .project-card:hover::before { opacity: 1; }
+    .project-emoji { font-size: 1.9rem; margin-bottom: 12px; }
+    .project-title { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 7px; }
+    .project-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .project-tag { padding: 3px 10px; border-radius: 99px; font-size: .71rem; background: rgba(13,148,136,.1); color: var(--teal2); border: 1px solid rgba(13,148,136,.2); }
+
+    /* CERTIFICATIONS */
+    #certs { background: var(--dark); }
+    .certs-grid { max-width: 880px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px,1fr)); gap: 18px; }
+    .cert-card { background: var(--dark2); border: 1px solid rgba(13,148,136,.14); border-radius: 13px; padding: 20px 22px; display: flex; align-items: flex-start; gap: 14px; transition: all .25s; }
+    .cert-card:hover { border-color: var(--teal); transform: translateY(-3px); }
+    .cert-icon { font-size: 1.7rem; flex-shrink: 0; }
+    .cert-body h4 { font-size: .9rem; font-weight: 700; color: var(--white); margin-bottom: 3px; }
+    .cert-body p { font-size: .76rem; color: var(--muted); }
+
+    /* CONTACT */
+    #contact { background: var(--dark2); }
+    .contact-inner { max-width: 680px; margin: 0 auto; text-align: center; }
+    .contact-intro { color: var(--muted); font-size: .94rem; line-height: 1.8; margin-bottom: 36px; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+    .contact-link { display: flex; align-items: center; gap: 10px; padding: 13px 26px; border-radius: 12px; background: var(--dark); border: 1px solid rgba(13,148,136,.2); color: var(--light); font-size: .88rem; font-weight: 600; transition: all .25s; }
+    .contact-link:hover { border-color: var(--teal2); background: rgba(13,148,136,.1); transform: translateY(-2px); color: var(--teal2); }
+
+    /* ══════════════════════════════════════════
+       ██ PAGE 2 — RESUME
+    ══════════════════════════════════════════ */
+    .doc-page {
+      background: #dce3ec; min-height: 100vh;
+      padding: 88px 16px 60px; display: flex; flex-direction: column; align-items: center;
+    }
+    .paper { width: 100%; max-width: 860px; background: var(--white); border-radius: 4px; box-shadow: 0 8px 40px rgba(0,0,0,.14); overflow: hidden; }
+
+    /* RESUME HEADER */
+    .res-header { background: linear-gradient(135deg, var(--dark) 0%, #1a2744 100%); padding: 34px 42px 28px; position: relative; overflow: hidden; }
+    .res-header::after { content: ''; position: absolute; right: -60px; top: -60px; width: 220px; height: 220px; border-radius: 50%; background: rgba(13,148,136,.12); }
+    .res-header::before { content: ''; position: absolute; right: 80px; bottom: -80px; width: 160px; height: 160px; border-radius: 50%; background: rgba(13,148,136,.08); }
+    .res-header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 18px; flex-wrap: wrap; }
+    .res-name { font-size: 2rem; font-weight: 800; color: #fff; letter-spacing: -.4px; line-height: 1.1; position: relative; z-index: 1; }
+    .res-role { font-size: .96rem; color: var(--teal2); font-weight: 500; margin-top: 5px; position: relative; z-index: 1; }
+    .res-contact { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 5px; align-items: flex-end; }
+    .rc-item { display: flex; align-items: center; gap: 6px; font-size: .76rem; color: #94a3b8; }
+    .res-tags { margin-top: 16px; display: flex; gap: 9px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .rtag { background: rgba(13,148,136,.18); color: var(--teal2); border: 1px solid rgba(13,148,136,.35); padding: 4px 13px; border-radius: 99px; font-size: .7rem; font-weight: 600; letter-spacing: .5px; }
+    .rtag.amber { background: rgba(245,158,11,.15); color: var(--accent); border-color: rgba(245,158,11,.35); }
+
+    /* RESUME BODY */
+    .res-body { display: grid; grid-template-columns: 270px 1fr; }
+    .res-sidebar { background: #f8fafc; border-right: 1px solid var(--border); padding: 26px 22px; }
+    .res-main { padding: 26px 30px; }
+    .rsec-title { font-size: .68rem; font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; color: var(--teal); padding-bottom: 6px; border-bottom: 2px solid var(--teal); margin-bottom: 13px; display: flex; align-items: center; gap: 7px; }
+    .rsb-block { margin-bottom: 22px; }
+    .rskill-row { margin-bottom: 9px; }
+    .rskill-top { display: flex; justify-content: space-between; margin-bottom: 3px; }
+    .rskill-name { font-size: .76rem; font-weight: 500; color: var(--dark2); }
+    .rskill-pct { font-size: .7rem; color: var(--teal); font-weight: 700; }
+    .rskill-bar { height: 5px; background: #dde4ee; border-radius: 99px; overflow: hidden; }
+    .rskill-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--teal), var(--teal2)); }
+    .rtag-cloud { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+    .stag { font-size: .7rem; font-weight: 600; padding: 3px 9px; border-radius: 99px; background: #e8f5f3; color: var(--teal); border: 1px solid #b2ddd8; }
+    .stag.amber { background: #fef3cd; color: #92650a; border-color: #f3d87a; }
+    .redu-item { margin-bottom: 13px; }
+    .redu-degree { font-size: .83rem; font-weight: 700; color: var(--dark2); }
+    .redu-school { font-size: .76rem; color: var(--muted); }
+    .redu-year { font-size: .7rem; color: var(--teal); font-weight: 700; }
+    .rcert-item { font-size: .76rem; color: var(--dark2); margin-bottom: 5px; display: flex; gap: 6px; }
+    .rcert-dot { color: var(--teal); font-weight: 700; flex-shrink: 0; }
+    .res-summary { font-size: .83rem; color: #475569; line-height: 1.78; margin-bottom: 20px; }
+    .res-summary strong { color: var(--dark2); }
+    .rexp-item { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+    .rexp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .rexp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; flex-wrap: wrap; margin-bottom: 3px; }
+    .rexp-role { font-size: .92rem; font-weight: 700; color: var(--dark); }
+    .rexp-date { font-size: .7rem; font-weight: 700; color: var(--teal); background: #e6faf8; padding: 3px 10px; border-radius: 99px; white-space: nowrap; }
+    .rexp-date.curr { background: #fef3cd; color: #92650a; }
+    .rexp-company { font-size: .77rem; color: var(--muted); margin-bottom: 9px; }
+    .rexp-bullets { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+    .rexp-bullets li { font-size: .79rem; color: #475569; line-height: 1.6; padding-left: 13px; position: relative; }
+    .rexp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-size: .73rem; top: 2px; }
+    .rproj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 18px; }
+    .rproj-card { border: 1px solid var(--border); border-radius: 8px; padding: 11px 13px; background: #f8fafc; }
+    .rproj-name { font-size: .79rem; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+    .rproj-desc { font-size: .72rem; color: var(--muted); line-height: 1.5; margin-bottom: 6px; }
+    .rproj-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .rptag { font-size: .66rem; background: #e8f5f3; color: var(--teal); border: 1px solid #b2ddd8; padding: 2px 7px; border-radius: 99px; }
+
+    /* ══════════════════════════════════════════
+       ██ PAGE 3 — CV
+    ══════════════════════════════════════════ */
+    .cv-paper { width: 100%; max-width: 900px; background: var(--white); border-radius: 4px; box-shadow: 0 10px 50px rgba(0,0,0,.14); overflow: hidden; }
+    .cv-banner { background: linear-gradient(135deg, var(--dark) 0%, #152040 60%, #0d2a3a 100%); padding: 0; display: grid; grid-template-columns: 1fr auto; position: relative; overflow: hidden; }
+    .cv-banner::before { content: ''; position: absolute; right: -80px; top: -80px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(13,148,136,.18) 0%, transparent 70%); }
+    .cv-banner::after { content: ''; position: absolute; left: -40px; bottom: -80px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, rgba(13,148,136,.1) 0%, transparent 70%); }
+    .cv-bl { padding: 38px 42px; position: relative; z-index: 1; }
+    .cv-name { font-size: 2.4rem; font-weight: 800; color: #fff; letter-spacing: -.5px; line-height: 1; }
+    .cv-role { font-size: 1rem; color: var(--teal2); font-weight: 500; margin: 7px 0 18px; }
+    .cv-btags { display: flex; gap: 9px; flex-wrap: wrap; }
+    .cvbtag { font-size: .7rem; font-weight: 700; letter-spacing: .8px; padding: 5px 13px; border-radius: 99px; background: rgba(13,148,136,.2); color: var(--teal2); border: 1px solid rgba(13,148,136,.35); }
+    .cvbtag.amber { background: rgba(245,158,11,.15); color: var(--accent); border-color: rgba(245,158,11,.35); }
+    .cv-br { padding: 38px 42px 38px 10px; display: flex; flex-direction: column; justify-content: center; gap: 9px; position: relative; z-index: 1; }
+    .cvc { display: flex; align-items: center; gap: 8px; font-size: .78rem; color: #94a3b8; }
+    .cvc a { color: var(--teal2); }
+    .cv-body { padding: 34px 42px; }
+    .cv-sec { margin-bottom: 32px; }
+    .cv-sec-title { font-size: .7rem; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: var(--teal); border-bottom: 2px solid var(--teal); padding-bottom: 7px; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+    .cv-sec-title span { font-size: .95rem; }
+    .profile-box { background: #e6faf8; border-left: 4px solid var(--teal); border-radius: 0 10px 10px 0; padding: 16px 20px; font-size: .86rem; color: var(--dark2); line-height: 1.8; }
+    .profile-box strong { color: var(--teal); }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+    .cv-exp-card { border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; margin-bottom: 14px; position: relative; overflow: hidden; }
+    .cv-exp-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, var(--teal), var(--teal2)); border-radius: 4px 0 0 4px; }
+    .cv-exp-card.curr::before { background: linear-gradient(180deg, var(--accent), #fbbf24); }
+    .cv-exp-hdr { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+    .cv-exp-role { font-size: .94rem; font-weight: 700; color: var(--dark); }
+    .cv-exp-badge { font-size: .68rem; font-weight: 700; padding: 3px 11px; border-radius: 99px; background: #e6faf8; color: var(--teal); }
+    .cv-exp-badge.curr { background: #fef3cd; color: #92650a; }
+    .cv-exp-meta { font-size: .78rem; color: var(--muted); margin-bottom: 10px; }
+    .cv-exp-meta strong { color: var(--dark2); }
+    .cv-ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .cv-ul li { font-size: .81rem; color: #475569; line-height: 1.65; padding-left: 14px; position: relative; }
+    .cv-ul li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-size: .74rem; top: 2px; }
+    .sk-cat { margin-bottom: 18px; }
+    .sk-cat-title { font-size: .76rem; font-weight: 700; color: var(--dark2); margin-bottom: 7px; }
+    .sk-tw { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sktg { font-size: .72rem; font-weight: 600; padding: 4px 11px; border-radius: 99px; background: #e8f5f3; color: var(--teal); border: 1px solid #b2ddd8; }
+    .sktg.amber { background: #fef3cd; color: #92650a; border-color: #f3d87a; }
+    .sktg.purple { background: #f3f0ff; color: #7c3aed; border-color: #c4b5fd; }
+    .cv-prof-row { margin-bottom: 11px; }
+    .cv-prof-top { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .cv-prof-name { font-size: .8rem; font-weight: 600; color: var(--dark2); }
+    .cv-prof-pct { font-size: .73rem; font-weight: 700; color: var(--teal); }
+    .cv-prof-bar { height: 6px; background: #dde4ee; border-radius: 99px; overflow: hidden; }
+    .cv-prof-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--teal), var(--teal2)); }
+    .cv-proj-card { border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; background: #f8fafc; }
+    .cv-proj-emoji { font-size: 1.5rem; margin-bottom: 7px; }
+    .cv-proj-name { font-size: .87rem; font-weight: 700; color: var(--dark); margin-bottom: 5px; }
+    .cv-proj-desc { font-size: .77rem; color: var(--muted); line-height: 1.6; margin-bottom: 8px; }
+    .cv-proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .cvpt { font-size: .67rem; background: #e8f5f3; color: var(--teal); border: 1px solid #b2ddd8; padding: 2px 8px; border-radius: 99px; }
+    .edu-card { display: flex; gap: 14px; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; align-items: flex-start; }
+    .edu-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .edu-degree { font-size: .9rem; font-weight: 700; color: var(--dark); }
+    .edu-school { font-size: .79rem; color: var(--muted); margin: 3px 0 6px; }
+    .edu-year { font-size: .72rem; font-weight: 700; color: var(--teal); background: #e6faf8; padding: 2px 10px; border-radius: 99px; display: inline-block; }
+    .cv-cert-card { display: flex; align-items: flex-start; gap: 11px; padding: 13px 15px; border: 1px solid var(--border); border-radius: 10px; background: #f8fafc; transition: border-color .2s; }
+    .cv-cert-card:hover { border-color: var(--teal); }
+    .cv-cert-ico { font-size: 1.4rem; flex-shrink: 0; }
+    .cv-cert-name { font-size: .8rem; font-weight: 700; color: var(--dark); }
+    .cv-cert-issuer { font-size: .71rem; color: var(--muted); }
+    .ach-list { display: flex; flex-direction: column; gap: 9px; }
+    .ach-item { display: flex; gap: 12px; align-items: flex-start; }
+    .ach-num { font-size: 1.25rem; font-weight: 800; color: var(--teal); min-width: 42px; }
+    .ach-text { font-size: .81rem; color: #475569; line-height: 1.6; padding-top: 3px; }
+    .lang-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 9px; }
+    .lang-name { font-size: .81rem; font-weight: 600; color: var(--dark2); }
+    .ldots { display: flex; gap: 4px; }
+    .ld { width: 9px; height: 9px; border-radius: 50%; background: #dde4ee; }
+    .ld.on { background: var(--teal); }
+    .soft-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .soft-tag { font-size: .73rem; font-weight: 600; padding: 5px 13px; border-radius: 99px; background: #f1f5f9; color: var(--dark2); border: 1px solid var(--border); }
+    .avail-banner { background: linear-gradient(135deg, rgba(13,148,136,.08), rgba(245,158,11,.06)); border: 1.5px solid rgba(13,148,136,.25); border-radius: 12px; padding: 18px 22px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .avail-icon { font-size: 1.9rem; }
+    .avail-text h4 { font-size: .9rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .avail-text p { font-size: .78rem; color: var(--muted); line-height: 1.55; }
+    .avail-text p strong { color: var(--teal); }
+    .cv-footer { background: var(--dark); color: #94a3b8; text-align: center; padding: 14px 22px; font-size: .73rem; border-top: 3px solid var(--teal); }
+    .cv-footer span { color: var(--teal2); }
+
+    /* GLOBAL FOOTER */
+    footer { text-align: center; padding: 22px; background: var(--dark); border-top: 1px solid rgba(13,148,136,.12); font-size: .78rem; color: var(--muted); }
+    footer span { color: var(--teal2); }
+
+    /* RESPONSIVE */
+    @media (max-width: 760px) {
+      nav { padding: 0 16px; }
+      .nav-links-small { display: none; }
+      .nav-center { gap: 4px; }
+      .nav-tab { padding: 6px 12px; font-size: .72rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 30px; }
+      .res-body { grid-template-columns: 1fr; }
+      .res-sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+      .cv-banner { grid-template-columns: 1fr; }
+      .cv-br { padding: 0 42px 32px; }
+      .two-col, .three-col, .rproj-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 10px; }
+      .timeline-item { padding-left: 36px; }
+      .timeline-dot { left: 2px; }
+      .remote-banner { flex-direction: column; }
+    }
+    @media print {
+      body { background: #fff; }
+      nav, footer, .page#portfolio { display: none !important; }
+      .doc-page { padding: 0; background: #fff; }
+      .paper, .cv-paper { box-shadow: none; border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════ -->
+  <nav>
+    <div class="nav-logo">Emmanuel Lelo.</div>
+    <div class="nav-center">
+      <button class="nav-tab active" onclick="switchPage('portfolio', this)">🗂 Portfolio</button>
+      <button class="nav-tab" onclick="switchPage('resume', this)">📄 Resume</button>
+      <button class="nav-tab" onclick="switchPage('cv', this)">📋 CV</button>
+    </div>
+    <div class="nav-right">
+      <ul class="nav-links-small" id="portfolioLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="print-btn-nav" id="printBtn" onclick="window.print()">🖨️ Save PDF</button>
+    </div>
+  </nav>
+
+  <!-- ════════════════════════════════════════
+       PAGE 1 — PORTFOLIO
+  ════════════════════════════════════════ -->
+  <div id="portfolio" class="page active">
+
+    <!-- HERO -->
+    <section id="hero">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+      <div class="hero-inner">
+        <div class="hero-badge">📊 1 Year of Professional Experience</div>
+        <h1 class="hero-name">EMMANUEL JOHN LELO</h1>
+        <p class="hero-title">
+          <span>Full-Stack Data Scientist</span> &nbsp;·&nbsp; <span>MLOps Engineer</span>
+        </p>
+        <div class="hero-remote">🌍 Open to Remote Jobs — Europe &amp; Worldwide</div>
+        <p class="hero-desc">
+          Passionate about building intelligent, production-ready ML systems — from exploratory data analysis
+          and model training to scalable deployment pipelines and real-time monitoring.
+        </p>
+        <div class="hero-btns">
+          <a href="#projects" class="btn btn-primary">🚀 View Projects</a>
+          <a href="#contact" class="btn btn-outline">✉️ Get in Touch</a>
+          <button class="btn btn-outline" onclick="switchPage('resume', document.querySelectorAll('.nav-tab')[1])">📄 View Resume</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about-grid">
+        <div class="about-avatar-wrap fade-up">
+          <div class="about-avatar">🧑‍💻</div>
+        </div>
+        <div class="about-text fade-up">
+          <h3>Hello, I'm <span style="color:var(--teal2)">EMMANUEL JOHN LELO</span> 👋</h3>
+          <p>
+            I am a Full-Stack Data Scientist and MLOps Engineer with <strong style="color:var(--white)">1 year of hands-on professional experience</strong>,
+            with a strong foundation in statistics, machine learning, and cloud-native engineering.
+            I specialize in turning raw data into actionable insights and deploying robust ML models at scale.
+          </p>
+          <p>
+            My expertise spans the full ML lifecycle — from data wrangling and feature engineering through
+            model development, CI/CD pipelines, containerization, and monitoring in production environments.
+          </p>
+          <div class="about-info">
+            <div class="info-item"><span class="info-label">📍 Location</span><span class="info-value">Dar-es-Salaam, Tanzania</span></div>
+            <div class="info-item"><span class="info-label">📧 Email</span><span class="info-value">leloemmanuel540@email.com</span></div>
+            <div class="info-item"><span class="info-label">💼 Experience</span><span class="info-value">1 Year</span></div>
+            <div class="info-item"><span class="info-label">🌍 Work Mode</span><span class="info-value">Remote · Europe &amp; Worldwide</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="stats-row fade-up">
+        <div class="stat"><div class="stat-num">1+</div><div class="stat-label">Year Experience</div></div>
+        <div class="stat"><div class="stat-num">10+</div><div class="stat-label">ML Models Built</div></div>
+        <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Projects Completed</div></div>
+        <div class="stat"><div class="stat-num">5+</div><div class="stat-label">Certifications</div></div>
+      </div>
+      <div class="remote-banner fade-up">
+        <div class="remote-banner-icon">🌍</div>
+        <div class="remote-banner-text">
+          <h4>Open to Remote Opportunities — Europe &amp; Worldwide</h4>
+          <p>Actively looking for <strong>remote roles</strong> as a Data Scientist or MLOps Engineer with teams across <strong>Europe and globally</strong>. Available for full-time, part-time, or contract engagements.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="skills-container">
+        <div class="section-header fade-up">
+          <div class="section-label">What I Work With</div>
+          <h2 class="section-title">Technical <span>Skills</span></h2>
+          <div class="section-line"></div>
+        </div>
+        <div class="skills-categories">
+          <div class="skill-card fade-up">
+            <div class="skill-card-header"><div class="skill-icon">🐍</div><h3>Programming &amp; Data</h3></div>
+            <div class="skill-tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">R</span><span class="tag">Pandas</span><span class="tag">NumPy</span></div>
+          </div>
+          <div class="skill-card fade-up">
+            <div class="skill-card-header"><div class="skill-icon">🧠</div><h3>Machine Learning &amp; AI</h3></div>
+            <div class="skill-tags"><span class="tag">Scikit-learn</span><span class="tag">TensorFlow</span><span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">HuggingFace</span></div>
+          </div>
+          <div class="skill-card fade-up">
+            <div class="skill-card-header"><div class="skill-icon">⚙️</div><h3>MLOps &amp; DevOps</h3></div>
+            <div class="skill-tags"><span class="tag accent">MLflow</span><span class="tag accent">DVC</span><span class="tag accent">ZenML</span><span class="tag accent">Prefect</span><span class="tag accent">GitHub Actions</span></div>
+          </div>
+          <div class="skill-card fade-up">
+            <div class="skill-card-header"><div class="skill-icon">☁️</div><h3>Cloud &amp; Infrastructure</h3></div>
+            <div class="skill-tags"><span class="tag">AWS SageMaker</span><span class="tag">AWS S3</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">Terraform</span></div>
+          </div>
+          <div class="skill-card fade-up">
+            <div class="skill-card-header"><div class="skill-icon">📊</div><h3>Analysis &amp; Visualization</h3></div>
+            <div class="skill-tags"><span class="tag">PostgreSQL</span><span class="tag">MongoDB</span><span class="tag">Plotly / Dash</span><span class="tag">Power BI</span><span class="tag">Streamlit</span></div>
+          </div>
+          <div class="skill-card fade-up">
+            <div class="skill-card-header"><div class="skill-icon">🔍</div><h3>Model Serving &amp; Monitoring</h3></div>
+            <div class="skill-tags"><span class="tag">FastAPI</span><span class="tag">Prometheus</span><span class="tag">Grafana</span><span class="tag">Evidently AI</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROFICIENCY -->
+    <section id="proficiency">
+      <div class="section-header fade-up">
+        <div class="section-label">Skill Depth</div>
+        <h2 class="section-title">My <span>Proficiency</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="prof-grid">
+        <div class="prof-item fade-up"><div class="prof-header"><span class="prof-name">Python &amp; Data Science Libraries</span><span class="prof-pct">88%</span></div><div class="prof-bar"><div class="prof-fill" data-w="88"></div></div></div>
+        <div class="prof-item fade-up"><div class="prof-header"><span class="prof-name">SQL &amp; Data Analysis</span><span class="prof-pct">85%</span></div><div class="prof-bar"><div class="prof-fill" data-w="85"></div></div></div>
+        <div class="prof-item fade-up"><div class="prof-header"><span class="prof-name">Machine Learning &amp; Model Development</span><span class="prof-pct">82%</span></div><div class="prof-bar"><div class="prof-fill" data-w="82"></div></div></div>
+        <div class="prof-item fade-up"><div class="prof-header"><span class="prof-name">MLOps Pipelines &amp; CI/CD</span><span class="prof-pct">75%</span></div><div class="prof-bar"><div class="prof-fill" data-w="75"></div></div></div>
+        <div class="prof-item fade-up"><div class="prof-header"><span class="prof-name">Docker &amp; Kubernetes</span><span class="prof-pct">72%</span></div><div class="prof-bar"><div class="prof-fill" data-w="72"></div></div></div>
+        <div class="prof-item fade-up"><div class="prof-header"><span class="prof-name">AWS Cloud Platform</span><span class="prof-pct">70%</span></div><div class="prof-bar"><div class="prof-fill" data-w="70"></div></div></div>
+        <div class="prof-item fade-up"><div class="prof-header"><span class="prof-name">Model Monitoring &amp; Observability</span><span class="prof-pct">70%</span></div><div class="prof-bar"><div class="prof-fill" data-w="70"></div></div></div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <div class="section-header fade-up">
+        <div class="section-label">Career Journey</div>
+        <h2 class="section-title">Work <span>Experience</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item fade-up">
+          <div class="timeline-dot current"></div>
+          <div class="timeline-date">2025 – Present</div>
+          <div class="timeline-role">Junior MLOps Engineer <span class="badge-current">Current</span></div>
+          
+          <div class="timeline-desc">Building and maintaining ML deployment pipelines using MLflow, Docker, and AWS SageMaker. Implementing CI/CD workflows with GitHub Actions. Setting up real-time model monitoring with Evidently AI and Grafana to track drift and performance in production.</div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2024 – 2025</div>
+          <div class="timeline-role">Junior Data Scientist</div>
+          
+          <div class="timeline-desc">Conducted end-to-end data analysis on large structured datasets using Python and SQL. Built interactive dashboards in Power BI and Streamlit. Applied statistical modelling and EDA to identify trends and support data-driven decisions.</div>
+        </div>
+        <div class="timeline-item fade-up">
+          <div class="timeline-dot"></div>
+          <div class="timeline-date">2023 – 2024</div>
+          <div class="timeline-role">Junior Data Analyst</div>
+          
+          <div class="timeline-desc">Performed exploratory data analysis and statistical reporting across multiple business datasets. Cleaned and visualized data using Pandas, NumPy, and Plotly. Maintained automated data pipelines with Python and PostgreSQL.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="section-header fade-up">
+        <div class="section-label">What I've Built</div>
+        <h2 class="section-title">Featured <span>Projects</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card fade-up"><div class="project-emoji">🏭</div><div class="project-title">ML Model Deployment Pipeline</div><div class="project-desc">End-to-end ML pipeline with automated retraining, model versioning, and drift detection deployed on AWS SageMaker with GitHub Actions CI/CD.</div><div class="project-tags"><span class="project-tag">MLflow</span><span class="project-tag">AWS SageMaker</span><span class="project-tag">Docker</span><span class="project-tag">GitHub Actions</span><span class="project-tag">Grafana</span></div></div>
+        <div class="project-card fade-up"><div class="project-emoji">📈</div><div class="project-title">Customer Churn Predictor</div><div class="project-desc">XGBoost ensemble model with SHAP explainability and a Streamlit front-end for business users, with automated weekly retraining workflow.</div><div class="project-tags"><span class="project-tag">XGBoost</span><span class="project-tag">SHAP</span><span class="project-tag">Streamlit</span><span class="project-tag">Scikit-learn</span><span class="project-tag">AWS S3</span></div></div>
+        <div class="project-card fade-up"><div class="project-emoji">🔐</div><div class="project-title">Fraud Detection System</div><div class="project-desc">Real-time fraud detection with LightGBM served through FastAPI with Prometheus and Grafana monitoring stack for full observability.</div><div class="project-tags"><span class="project-tag">LightGBM</span><span class="project-tag">FastAPI</span><span class="project-tag">Prometheus</span><span class="project-tag">Evidently AI</span><span class="project-tag">Docker</span></div></div>
+        <div class="project-card fade-up"><div class="project-emoji">🖼️</div><div class="project-title">Computer Vision Classifier</div><div class="project-desc">Image classification with TensorFlow and transfer learning, served via FastAPI with Docker containerization and DVC for dataset versioning.</div><div class="project-tags"><span class="project-tag">TensorFlow</span><span class="project-tag">FastAPI</span><span class="project-tag">Docker</span><span class="project-tag">OpenCV</span><span class="project-tag">DVC</span></div></div>
+        <div class="project-card fade-up"><div class="project-emoji">💬</div><div class="project-title">NLP Sentiment Analyser</div><div class="project-desc">Text classification pipeline using HuggingFace transformers with MLflow experiment tracking and a Streamlit demo interface.</div><div class="project-tags"><span class="project-tag">HuggingFace</span><span class="project-tag">Scikit-learn</span><span class="project-tag">MLflow</span><span class="project-tag">Streamlit</span></div></div>
+        <div class="project-card fade-up"><div class="project-emoji">📊</div><div class="project-title">Automated EDA Dashboard</div><div class="project-desc">Reusable automated EDA tool that generates interactive visual reports for any tabular dataset using Pandas, Plotly, and Streamlit.</div><div class="project-tags"><span class="project-tag">Pandas</span><span class="project-tag">Plotly</span><span class="project-tag">Streamlit</span><span class="project-tag">NumPy</span><span class="project-tag">SQL</span></div></div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certs">
+      <div class="section-header fade-up">
+        <div class="section-label">Credentials</div>
+        <h2 class="section-title">Certifications &amp; <span>Education</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="certs-grid">
+        <div class="cert-card fade-up"><div class="cert-icon">☁️</div><div class="cert-body"><h4>AWS </h4><p>Amazon Web Services · 2024</p></div></div>
+        <div class="cert-card fade-up"><div class="cert-icon">⚙️</div><div class="cert-body"><h4>MLOps Specialization</h4><p>DeepLearning.AI / Coursera · 2025</p></div></div>
+        <div class="cert-card fade-up"><div class="cert-icon">🧠</div><div class="cert-body"><h4>Deep Learning Specialization</h4><p>DeepLearning.AI / Coursera · 2024</p></div></div>
+        <div class="cert-card fade-up"><div class="cert-icon">🐳</div><div class="cert-body"><h4>Docker &amp; Kubernetes Fundamentals</h4><p>Linux Foundation · 2024</p></div></div>
+        <div class="cert-card fade-up"><div class="cert-icon">📊</div><div class="cert-body"><h4>Data Science Professional Certificate</h4><p>IBM / Coursera · 2023</p></div></div>
+        <div class="cert-card fade-up"><div class="cert-icon">🎓</div><div class="cert-body"><h4>B.Sc. Computer Science</h4><p>University of Nairobi · 2023</p></div></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-header fade-up">
+        <div class="section-label">Let's Connect</div>
+        <h2 class="section-title">Get In <span>Touch</span></h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="contact-inner fade-up">
+        <p class="contact-intro">I'm actively seeking <strong style="color:var(--teal2)">remote opportunities in Europe and worldwide</strong> as a Full-Stack Data Scientist or MLOps Engineer. Feel free to reach out — I'll respond within 24 hours!</p>
+        <div class="contact-links">
+          <a href="mailto:leloemmanuel540@email.com" class="contact-link"><span>📧</span> leloemmanuel540@email.com</a>
+          <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank"><span>💼</span> LinkedIn</a>
+          <a href="https://github.com/yourusername" class="contact-link" target="_blank"><span>🐙</span> GitHub</a>
+          <a href="https://kaggle.com/yourusername" class="contact-link" target="_blank"><span>📊</span> Kaggle</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Crafted with ❤️ by <span>Emmanuel John Lelo</span> · Full-Stack Data Scientist &amp; MLOps Engineer · 🌍 Open to Remote · 2026</p>
+    </footer>
+
+  </div><!-- /portfolio page -->
+
+  <!-- ════════════════════════════════════════
+       PAGE 2 — RESUME
+  ════════════════════════════════════════ -->
+  <div id="resume" class="page">
+    <div class="doc-page">
+      <div class="paper">
+        <div class="res-header">
+          <div class="res-header-top">
+            <div>
+              <div class="res-name">Emmanuel John Lelo</div>
+              <div class="res-role">Full-stack Data Scientist &amp; MLOps Engineer</div>
+            </div>
+            <div class="res-contact">
+              <div class="rc-item">📧 leloemmanuel540@email.com</div>
+              <div class="rc-item">📱 +254 696 393 526</div>
+              <div class="rc-item">💼 https://www.linkedin.com/in/emmanuel-john-61b343334</div>
+              <div class="rc-item">🐙 https://github.com/emmanuelmassawe</div>
+              <div class="rc-item">📍Dar-es-salaam, Tanzania</div>
+            </div>
+          </div>
+          <div class="res-tags">
+            <span class="rtag amber">🌍 Open to Remote — Europe &amp; Worldwide</span>
+            <span class="rtag">1 Year Experience</span>
+            <span class="rtag">Python · ML · MLOps · AWS</span>
+          </div>
+        </div>
+
+        <div class="res-body">
+          <div class="res-sidebar">
+            <div class="rsb-block">
+              <div class="rsec-title">⚡ Core Skills</div>
+              <div class="rskill-row"><div class="rskill-top"><span class="rskill-name">Python &amp; Data Libraries</span><span class="rskill-pct">88%</span></div><div class="rskill-bar"><div class="rskill-fill" style="width:88%"></div></div></div>
+              <div class="rskill-row"><div class="rskill-top"><span class="rskill-name">Machine Learning</span><span class="rskill-pct">82%</span></div><div class="rskill-bar"><div class="rskill-fill" style="width:82%"></div></div></div>
+              <div class="rskill-row"><div class="rskill-top"><span class="rskill-name">SQL &amp; Data Analysis</span><span class="rskill-pct">85%</span></div><div class="rskill-bar"><div class="rskill-fill" style="width:85%"></div></div></div>
+              <div class="rskill-row"><div class="rskill-top"><span class="rskill-name">MLOps &amp; CI/CD</span><span class="rskill-pct">75%</span></div><div class="rskill-bar"><div class="rskill-fill" style="width:75%"></div></div></div>
+              <div class="rskill-row"><div class="rskill-top"><span class="rskill-name">Docker &amp; Kubernetes</span><span class="rskill-pct">72%</span></div><div class="rskill-bar"><div class="rskill-fill" style="width:72%"></div></div></div>
+              <div class="rskill-row"><div class="rskill-top"><span class="rskill-name">AWS Cloud</span><span class="rskill-pct">60%</span></div><div class="rskill-bar"><div class="rskill-fill" style="width:70%"></div></div></div>
+            </div>
+            <div class="rsb-block">
+              <div class="rsec-title">🛠️ Tools &amp; Frameworks</div>
+              <div class="rtag-cloud">
+                <span class="stag">Scikit-learn</span><span class="stag">TensorFlow</span><span class="stag">XGBoost</span>
+                <span class="stag">LightGBM</span><span class="stag">HuggingFace</span><span class="stag">MLflow</span>
+                <span class="stag">DVC</span><span class="stag">ZenML</span><span class="stag amber">GitHub Actions</span>
+                <span class="stag">FastAPI</span><span class="stag">Streamlit</span><span class="stag">Evidently AI</span>
+                <span class="stag">Prometheus</span><span class="stag">Grafana</span><span class="stag">Pandas</span>
+                <span class="stag">NumPy</span><span class="stag">plotly</span><span class="stag amber">Docker</span>
+                <span class="stag amber">Kubernetes</span><span class="stag amber">AWS SageMaker</span>
+              </div>
+            </div>
+            <div class="rsb-block">
+              <div class="rsec-title">🎓 Education</div>
+              <div class="redu-item">
+                <div class="redu-degree">B.Sc. Data Science</div>
+                <div class="redu-school">EASTC .Dar-es-salaam</div>
+                
+              </div>
+            </div>
+            <div class="rsb-block">
+              <div class="rsec-title">📜 Certifications</div>
+              <div class="rcert-item"><span class="rcert-dot">▸</span> AWS </div>
+              <div class="rcert-item"><span class="rcert-dot">▸</span> MLOps Specialization — DeepLearning.AI</div>
+              <div class="rcert-item"><span class="rcert-dot">▸</span> Deep Learning Specialization — DeepLearning.AI</div>
+              <div class="rcert-item"><span class="rcert-dot">▸</span> Docker &amp; Kubernetes Fundamentals</div>
+              <div class="rcert-item"><span class="rcert-dot">▸</span> Data Science Certificate — IBM</div>
+            </div>
+            <div class="rsb-block">
+              <div class="rsec-title">🗣️ Languages</div>
+              <div class="rcert-item"><span class="rcert-dot">▸</span> English — Fluent</div>
+              <div class="rcert-item"><span class="rcert-dot">▸</span> Swahili — Native</div>
+            </div>
+          </div>
+
+          <div class="res-main">
+            <div class="rsec-title">👤 Professional Summary</div>
+            <p class="res-summary">Results-driven <strong>Full-Stack Data Scientist &amp; MLOps Engineer</strong> with <strong>1 year of hands-on experience</strong> across data analysis, ML model development, and production deployment pipelines. Skilled in the full ML lifecycle — from EDA and feature engineering to containerized model serving, CI/CD automation, and real-time monitoring. Actively seeking <strong>remote opportunities in Europe and worldwide</strong>.</p>
+            <div class="rsec-title">💼 Work Experience</div>
+            <div class="rexp-item">
+              <div class="rexp-header"><div class="rexp-role">Junior MLOps Engineer</div><span class="rexp-date curr">2025 – Present</span></div>
+              
+              <ul class="rexp-bullets">
+                <li>Building and maintaining ML deployment pipelines using MLflow, Docker, and AWS SageMaker.</li>
+                <li>Implementing CI/CD automation with GitHub Actions for continuous model training and deployment.</li>
+                <li>Setting up real-time model monitoring with Evidently AI and Grafana to track drift and performance.</li>
+                <li>Packaging models as FastAPI microservices, containerized with Docker and deployed on Kubernetes.</li>
+              </ul>
+            </div>
+            <div class="rexp-item">
+              <div class="rexp-header"><div class="rexp-role">Junior Data Scientist</div><span class="rexp-date">2024 – 2025</span></div>
+              
+              <ul class="rexp-bullets">
+                <li>Conducted end-to-end data analysis on large structured datasets using Python and SQL.</li>
+                <li>Built interactive dashboards in Power BI and Streamlit for business stakeholders.</li>
+                <li>Applied statistical modelling and EDA to surface trends and support data-driven decisions.</li>
+              </ul>
+            </div>
+            <div class="rexp-item">
+              <div class="rexp-header"><div class="rexp-role">Junior Data Analyst</div><span class="rexp-date">2023 – 2024</span></div>
+              
+              <ul class="rexp-bullets">
+                <li>Performed EDA and statistical reporting across multiple business datasets.</li>
+                <li>Cleaned and visualized data using Pandas, NumPy, and Plotly.</li>
+                <li>Maintained automated data pipelines using Python and PostgreSQL.</li>
+              </ul>
+            </div>
+            <div class="rsec-title">🚀 Key Projects</div>
+            <div class="rproj-grid">
+              <div class="rproj-card"><div class="rproj-name">🏭 ML Deployment Pipeline</div><div class="rproj-desc">Automated retraining &amp; deployment on AWS SageMaker with drift monitoring.</div><div class="rproj-tags"><span class="rptag">MLflow</span><span class="rptag">Docker</span><span class="rptag">GitHub Actions</span></div></div>
+              <div class="rproj-card"><div class="rproj-name">📈 Churn Predictor</div><div class="rproj-desc">XGBoost model with SHAP explainability &amp; Streamlit dashboard.</div><div class="rproj-tags"><span class="rptag">XGBoost</span><span class="rptag">SHAP</span><span class="rptag">Streamlit</span></div></div>
+              <div class="rproj-card"><div class="rproj-name">🔐 Fraud Detection</div><div class="rproj-desc">Real-time LightGBM inference via FastAPI with full monitoring stack.</div><div class="rproj-tags"><span class="rptag">LightGBM</span><span class="rptag">FastAPI</span><span class="rptag">Prometheus</span></div></div>
+              <div class="rproj-card"><div class="rproj-name">💬 NLP Sentiment Analyser</div><div class="rproj-desc">HuggingFace transformer pipeline with MLflow &amp; Streamlit demo.</div><div class="rproj-tags"><span class="rptag">HuggingFace</span><span class="rptag">MLflow</span><span class="rptag">Streamlit</span></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       PAGE 3 — CV
+  ════════════════════════════════════════ -->
+  <div id="cv" class="page">
+    <div class="doc-page">
+      <div class="cv-paper">
+
+        <div class="cv-banner">
+          <div class="cv-bl">
+            <div class="cv-name">Emmanuel John lelo</div>
+            <div class="cv-role">Full-Stack Data Scientist &amp; MLOps Engineer</div>
+            <div class="cv-btags">
+              <span class="cvbtag amber">🌍 Open to Remote — Europe &amp; Worldwide</span>
+              <span class="cvbtag">1 Year Experience</span>
+              <span class="cvbtag">Python · ML · MLOps · AWS</span>
+            </div>
+          </div>
+          <div class="cv-br">
+            <div class="cvc">📧 leloemmanuel540@email.com</div>
+            <div class="cvc">📱 +255 696 393 526</div>
+            <div class="cvc">📍 Dar-es-Salaam,Tanzania</div>
+            <div class="cvc">💼 <a href="#">https://www.linkedin.com/in/emmanuel-john-61b343334</a></div>
+            <div class="cvc">🐙 <a href="#">https://github.com/emmanuelmassawe</a></div>
+            <div class="cvc">📊 <a href="#">kaggle.com/yourusername</a></div>
+          </div>
+        </div>
+
+        <div class="cv-body">
+
+          <div class="cv-sec">
+            <div class="cv-sec-title"><span>👤</span> Professional Profile</div>
+            <div class="profile-box">I am a dedicated <strong>Full-Stack Data Scientist and MLOps Engineer</strong> with <strong>1 year of professional experience</strong> spanning data analysis, machine learning, and production ML deployment pipelines. I cover the full ML lifecycle — from exploratory data analysis, feature engineering, and model training, to containerized model serving, CI/CD automation, and real-time monitoring. I am <strong>actively seeking remote opportunities in Europe and worldwide</strong>, bringing strong analytical skills, clean coding practices, and a passion for reliable, scalable data-driven systems.</div>
+          </div>
+
+          <div class="cv-sec">
+            <div class="cv-sec-title"><span>💼</span> Work Experience</div>
+            <div class="cv-exp-card curr">
+              <div class="cv-exp-hdr"><div class="cv-exp-role">Junior MLOps Engineer</div><span class="cv-exp-badge curr">2025 – Present · Current</span></div>
+              
+              <ul class="cv-ul">
+                <li>Designed and maintained end-to-end ML deployment pipelines using MLflow, Docker, and AWS SageMaker, reducing release cycles significantly.</li>
+                <li>Implemented CI/CD automation workflows with GitHub Actions for continuous model training, testing, and deployment.</li>
+                <li>Set up real-time model monitoring using Evidently AI and Grafana dashboards to track data drift and performance degradation.</li>
+                <li>Managed model and dataset versioning using DVC, ensuring full experiment reproducibility across environments.</li>
+                <li>Packaged trained models as FastAPI RESTful microservices, containerized with Docker, deployed on Kubernetes clusters.</li>
+                <li>Collaborated closely with data scientists to bridge research experimentation and production-grade deployment.</li>
+              </ul>
+            </div>
+            <div class="cv-exp-card">
+              <div class="cv-exp-hdr"><div class="cv-exp-role">Data Analyst</div><span class="cv-exp-badge">2024 – 2025</span></div>
+              
+              <ul class="cv-ul">
+                <li>Conducted comprehensive data analysis on large structured datasets using Python (Pandas, NumPy) and SQL.</li>
+                <li>Designed and delivered interactive  dashboards using plotly and fastapi, enabling data-driven decisions.</li>
+                <li>Applied advanced statistical modelling and EDA to surface actionable trends and forecast key business metrics.</li>
+                <li>Authored analytical reports and presented findings to non-technical stakeholders and senior management.</li>
+                <li>Standardized data cleaning workflows, improving team-wide data quality and processing efficiency.</li>
+              </ul>
+            </div>
+            <div class="cv-exp-card">
+              <div class="cv-exp-hdr"><div class="cv-exp-role">Junior Data Analyst</div><span class="cv-exp-badge">2023 – 2024</span></div>
+              
+              <ul class="cv-ul">
+                <li>Performed EDA and statistical reporting across multiple business datasets to support operational decisions.</li>
+                <li>Cleaned, transformed, and visualized data using Pandas, NumPy, and Plotly, ensuring consistency across datasets.</li>
+                <li>Built and maintained automated data pipelines using Python and PostgreSQL, eliminating repetitive manual tasks.</li>
+                <li>Collaborated with cross-functional teams to deliver weekly insight reports and track KPIs.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="cv-sec">
+            <div class="cv-sec-title"><span>⚡</span> Technical Skills</div>
+            <div class="two-col">
+              <div>
+                <div class="sk-cat"><div class="sk-cat-title">🐍 Programming &amp; Data</div><div class="sk-tw"><span class="sktg">Python</span><span class="sktg">SQL</span><span class="sktg">R</span><span class="sktg">Pandas</span><span class="sktg">NumPy</span></div></div>
+                <div class="sk-cat"><div class="sk-cat-title">🧠 Machine Learning &amp; AI</div><div class="sk-tw"><span class="sktg">Scikit-learn</span><span class="sktg">TensorFlow</span><span class="sktg">XGBoost</span><span class="sktg">LightGBM</span><span class="sktg">HuggingFace</span></div></div>
+                <div class="sk-cat"><div class="sk-cat-title">⚙️ MLOps &amp; DevOps</div><div class="sk-tw"><span class="sktg amber">MLflow</span><span class="sktg amber">DVC</span><span class="sktg amber">ZenML</span><span class="sktg amber">Prefect</span><span class="sktg amber">GitHub Actions</span></div></div>
+              </div>
+              <div>
+                <div class="sk-cat"><div class="sk-cat-title">☁️ Cloud &amp; Infrastructure</div><div class="sk-tw"><span class="sktg purple">AWS SageMaker</span><span class="sktg purple">AWS S3</span><span class="sktg purple">Docker</span><span class="sktg purple">Kubernetes</span><span class="sktg purple">Terraform</span></div></div>
+                <div class="sk-cat"><div class="sk-cat-title">📊 Analysis &amp; Visualization</div><div class="sk-tw"><span class="sktg">PostgreSQL</span><span class="sktg">MongoDB</span><span class="sktg">Plotly</span><span class="sktg">Power BI</span><span class="sktg">Streamlit</span></div></div>
+                <div class="sk-cat"><div class="sk-cat-title">🔍 Model Serving &amp; Monitoring</div><div class="sk-tw"><span class="sktg">FastAPI</span><span class="sktg">Evidently AI</span><span class="sktg">Prometheus</span><span class="sktg">Grafana</span></div></div>
+              </div>
+            </div>
+            <div style="margin-top:16px">
+              <div class="cv-prof-row"><div class="cv-prof-top"><span class="cv-prof-name">Python &amp; Data Science Libraries</span><span class="cv-prof-pct">88%</span></div><div class="cv-prof-bar"><div class="cv-prof-fill" style="width:88%"></div></div></div>
+              <div class="cv-prof-row"><div class="cv-prof-top"><span class="cv-prof-name">SQL &amp; Data Analysis</span><span class="cv-prof-pct">85%</span></div><div class="cv-prof-bar"><div class="cv-prof-fill" style="width:85%"></div></div></div>
+              <div class="cv-prof-row"><div class="cv-prof-top"><span class="cv-prof-name">Machine Learning &amp; Model Development</span><span class="cv-prof-pct">82%</span></div><div class="cv-prof-bar"><div class="cv-prof-fill" style="width:82%"></div></div></div>
+              <div class="cv-prof-row"><div class="cv-prof-top"><span class="cv-prof-name">MLOps Pipelines &amp; CI/CD</span><span class="cv-prof-pct">75%</span></div><div class="cv-prof-bar"><div class="cv-prof-fill" style="width:75%"></div></div></div>
+              <div class="cv-prof-row"><div class="cv-prof-top"><span class="cv-prof-name">Docker &amp; Kubernetes</span><span class="cv-prof-pct">72%</span></div><div class="cv-prof-bar"><div class="cv-prof-fill" style="width:72%"></div></div></div>
+            </div>
+          </div>
+
+          <div class="cv-sec">
+            <div class="cv-sec-title"><span>🚀</span> Featured Projects</div>
+            <div class="two-col">
+              <div class="cv-proj-card"><div class="cv-proj-emoji">🏭</div><div class="cv-proj-name">ML Model Deployment Pipeline</div><div class="cv-proj-desc">End-to-end automated retraining &amp; deployment on AWS SageMaker with drift monitoring and GitHub Actions CI/CD.</div><div class="cv-proj-tags"><span class="cvpt">MLflow</span><span class="cvpt">AWS SageMaker</span><span class="cvpt">Docker</span><span class="cvpt">GitHub Actions</span></div></div>
+              <div class="cv-proj-card"><div class="cv-proj-emoji">📈</div><div class="cv-proj-name">Customer Churn Predictor</div><div class="cv-proj-desc">XGBoost model with SHAP explainability, Streamlit front-end, and automated retraining workflow.</div><div class="cv-proj-tags"><span class="cvpt">XGBoost</span><span class="cvpt">SHAP</span><span class="cvpt">Streamlit</span><span class="cvpt">AWS S3</span></div></div>
+              <div class="cv-proj-card"><div class="cv-proj-emoji">🔐</div><div class="cv-proj-name">Fraud Detection System</div><div class="cv-proj-desc">Real-time LightGBM inference via FastAPI with Prometheus and Grafana monitoring stack.</div><div class="cv-proj-tags"><span class="cvpt">LightGBM</span><span class="cvpt">FastAPI</span><span class="cvpt">Prometheus</span><span class="cvpt">Evidently AI</span></div></div>
+              <div class="cv-proj-card"><div class="cv-proj-emoji">💬</div><div class="cv-proj-name">NLP Sentiment Analyser</div><div class="cv-proj-desc">HuggingFace transformer pipeline with MLflow tracking and an interactive Streamlit demo.</div><div class="cv-proj-tags"><span class="cvpt">HuggingFace</span><span class="cvpt">MLflow</span><span class="cvpt">Streamlit</span></div></div>
+              <div class="cv-proj-card"><div class="cv-proj-emoji">🖼️</div><div class="cv-proj-name">Computer Vision Classifier</div><div class="cv-proj-desc">TensorFlow transfer learning model served via FastAPI with Docker and DVC versioning.</div><div class="cv-proj-tags"><span class="cvpt">TensorFlow</span><span class="cvpt">FastAPI</span><span class="cvpt">Docker</span><span class="cvpt">DVC</span></div></div>
+              <div class="cv-proj-card"><div class="cv-proj-emoji">📊</div><div class="cv-proj-name">Automated EDA Dashboard</div><div class="cv-proj-desc">Reusable automated EDA tool generating interactive visual reports with Pandas, Plotly, and Streamlit.</div><div class="cv-proj-tags"><span class="cvpt">Pandas</span><span class="cvpt">Plotly</span><span class="cvpt">Streamlit</span></div></div>
+            </div>
+          </div>
+
+          <div class="cv-sec">
+            <div class="cv-sec-title"><span>🎓</span> Education</div>
+            <div class="two-col">
+              <div class="edu-card"><div class="edu-icon">🎓</div><div><div class="edu-degree">B.Sc. Data Science</div><div class="edu-school">EASTC UNIVERSITY· Tanzania</div><div style="margin-top:6px"><span class="edu-year"></span></div><div style="margin-top:7px;font-size:.75rem;color:var(--muted)">Relevant: Machine Learning, Algorithms, Database Systems, Statistics, Software Engineering</div></div></div>
+              <div class="edu-card"><div class="edu-icon">📚</div><div><div class="edu-degree">Self-Directed Learning</div><div class="edu-school">Coursera · DeepLearning.AI · Kaggle · AWS Training</div><div style="margin-top:6px"><span class="edu-year">2023 – 2025</span></div><div style="margin-top:7px;font-size:.75rem;color:var(--muted)">Specializations in ML, Deep Learning, MLOps, and Cloud Engineering.</div></div></div>
+            </div>
+          </div>
+
+          <div class="cv-sec">
+            <div class="cv-sec-title"><span>📜</span> Certifications</div>
+            <div class="three-col">
+              <div class="cv-cert-card"><div class="cv-cert-ico">☁️</div><div><div class="cv-cert-name">Self taught in </div><div class="cv-cert-issuer">Amazon Web Services · 2024</div></div></div>
+              <div class="cv-cert-card"><div class="cv-cert-ico">⚙️</div><div><div class="cv-cert-name">MLOps Specialization</div><div class="cv-cert-issuer">DeepLearning.AI · 2025</div></div></div>
+              <div class="cv-cert-card"><div class="cv-cert-ico">🧠</div><div><div class="cv-cert-name">Deep Learning Specialization</div><div class="cv-cert-issuer">DeepLearning.AI · 2024</div></div></div>
+              <div class="cv-cert-card"><div class="cv-cert-ico">🐳</div><div><div class="cv-cert-name">Docker &amp; Kubernetes Fundamentals</div><div class="cv-cert-issuer">Linux Foundation · 2024</div></div></div>
+              <div class="cv-cert-card"><div class="cv-cert-ico">📊</div><div><div class="cv-cert-name">Data Science Professional Certificate</div><div class="cv-cert-issuer">IBM / Coursera · 2023</div></div></div>
+              <div class="cv-cert-card"><div class="cv-cert-ico">🏅</div><div><div class="cv-cert-name">Machine Learning with Python</div><div class="cv-cert-issuer">freeCodeCamp · 2023</div></div></div>
+            </div>
+          </div>
+
+          <div class="cv-sec">
+            <div class="cv-sec-title"><span>🏆</span> Key Achievements</div>
+            <div class="ach-list">
+              <div class="ach-item"><div class="ach-num">60%</div><div class="ach-text">Reduced model deployment cycle time by automating CI/CD pipelines with GitHub Actions and Docker, enabling faster iteration and more reliable releases.</div></div>
+              <div class="ach-item"><div class="ach-num">6+</div><div class="ach-text">End-to-end ML projects completed — spanning churn prediction, fraud detection, computer vision, NLP, and automated EDA — all with production-ready deployment.</div></div>
+              <div class="ach-item"><div class="ach-num">5+</div><div class="ach-text">Professional certifications earned in ML, MLOps, Deep Learning, Docker/Kubernetes, and Cloud — reflecting commitment to continuous learning.</div></div>
+              <div class="ach-item"><div class="ach-num">100%</div><div class="ach-text">Self-taught MLOps stack — independently mastered MLflow, DVC, , Evidently AI, Prometheus, and Grafana alongside a formal CS degree.</div></div>
+            </div>
+          </div>
+
+          <div class="cv-sec">
+            <div class="cv-sec-title"><span>🗣️</span> Languages &amp; Soft Skills</div>
+            <div class="two-col">
+              <div>
+                <div style="margin-bottom:12px;font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Languages</div>
+                <div class="lang-item"><span class="lang-name">English</span><div class="ldots"><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div></div></div>
+                <div class="lang-item"><span class="lang-name">Swahili</span><div class="ldots"><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div><div class="ld on"></div></div></div>
+              </div>
+              <div>
+                <div style="margin-bottom:12px;font-size:.76rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px">Soft Skills</div>
+                <div class="soft-tags">
+                  <span class="soft-tag">Analytical Thinking</span><span class="soft-tag">Problem Solving</span>
+                  <span class="soft-tag">Team Collaboration</span><span class="soft-tag">Fast Learner</span>
+                  <span class="soft-tag">Attention to Detail</span><span class="soft-tag">Remote-Ready</span>
+                  <span class="soft-tag">Clear Communication</span><span class="soft-tag">Self-Motivated</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-sec" style="margin-bottom:0">
+            <div class="cv-sec-title"><span>🌍</span> Availability &amp; Work Preferences</div>
+            <div class="avail-banner">
+              <div class="avail-icon">🌍</div>
+              <div class="avail-text">
+                <h4>Open to Remote Opportunities — Europe &amp; Worldwide</h4>
+                <p>Actively seeking <strong>full-time, part-time, or contract remote roles</strong> as a Data Scientist or MLOps Engineer with teams across <strong>Europe and globally</strong>. Available immediately. Comfortable with async workflows, international time zones, and cross-functional remote teams.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="cv-footer"><span>Emmanuel John Lelo</span> · Full-Stack Data Scientist &amp; MLOps Engineer · your@email.com · 🌍 Open to Remote · Europe &amp; Worldwide · 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════════════ -->
+  <script>
+    /* ── Page switcher ── */
+    function switchPage(id, btn) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      const portfolioLinks = document.getElementById('portfolioLinks');
+      const printBtn = document.getElementById('printBtn');
+      if (id === 'portfolio') {
+        portfolioLinks.style.display = 'flex';
+        printBtn.classList.remove('visible');
+      } else {
+        portfolioLinks.style.display = 'none';
+        printBtn.classList.add('visible');
+      }
+    }
+
+    /* ── Fade-up ── */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(el => { if (el.isIntersecting) el.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    /* ── Progress bars ── */
+    const barObs = new IntersectionObserver(entries => {
+      entries.forEach(el => { if (el.isIntersecting) el.target.style.width = el.target.dataset.w + '%'; });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.prof-fill').forEach(b => barObs.observe(b));
+
+    /* ── Active nav link on scroll (portfolio only) ── */
+    const sections = document.querySelectorAll('#portfolio section[id]');
+    const navLinks = document.querySelectorAll('.nav-links-small a');
+    window.addEventListener('scroll', () => {
+      let cur = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+      navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + cur ? 'var(--teal2)' : ''; });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume — Your Name | Data Scientist & MLOps Engineer</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:     #0d9488;
+      --teal-lt:  #ccfbf1;
+      --teal-mid: #14b8a6;
+      --dark:     #0f172a;
+      --dark2:    #1e293b;
+      --mid:      #475569;
+      --muted:    #64748b;
+      --light:    #f8fafc;
+      --border:   #e2e8f0;
+      --accent:   #f59e0b;
+      --white:    #ffffff;
+    }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: #e8edf2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px 60px;
+      min-height: 100vh;
+    }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      width: 100%; max-width: 860px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 18px;
+    }
+    .toolbar-title { font-size: .85rem; color: #64748b; font-weight: 500; }
+    .print-btn {
+      background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+      color: #fff; border: none; padding: 9px 22px; border-radius: 8px;
+      font-size: .84rem; font-weight: 600; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(13,148,136,.35);
+      transition: all .2s;
+    }
+    .print-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(13,148,136,.45); }
+
+    /* ── PAPER ── */
+    .paper {
+      width: 100%; max-width: 860px;
+      background: var(--white);
+      border-radius: 4px;
+      box-shadow: 0 8px 40px rgba(0,0,0,.13);
+      overflow: hidden;
+    }
+
+    /* ── HEADER ── */
+    .header {
+      background: linear-gradient(135deg, var(--dark) 0%, #1a2744 100%);
+      padding: 36px 44px 30px;
+      position: relative; overflow: hidden;
+    }
+    .header::after {
+      content: '';
+      position: absolute; right: -60px; top: -60px;
+      width: 220px; height: 220px; border-radius: 50%;
+      background: rgba(13,148,136,.12);
+    }
+    .header::before {
+      content: '';
+      position: absolute; right: 80px; bottom: -80px;
+      width: 160px; height: 160px; border-radius: 50%;
+      background: rgba(13,148,136,.08);
+    }
+    .header-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+    .header-name-block { position: relative; z-index: 1; }
+    .header-name {
+      font-size: 2.1rem; font-weight: 800; color: #fff; letter-spacing: -.5px; line-height: 1.1;
+    }
+    .header-role {
+      font-size: 1rem; font-weight: 500;
+      color: var(--teal-mid); margin-top: 5px; letter-spacing: .3px;
+    }
+    .header-contact { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+    .contact-item {
+      display: flex; align-items: center; gap: 7px;
+      font-size: .78rem; color: #94a3b8;
+    }
+    .contact-item span.icon { font-size: .9rem; }
+    .header-tags { margin-top: 18px; display: flex; gap: 10px; flex-wrap: wrap; position: relative; z-index: 1; }
+    .htag {
+      background: rgba(13,148,136,.18); color: var(--teal-mid);
+      border: 1px solid rgba(13,148,136,.35);
+      padding: 4px 14px; border-radius: 99px;
+      font-size: .73rem; font-weight: 600; letter-spacing: .5px;
+    }
+    .htag.accent { background: rgba(245,158,11,.15); color: var(--accent); border-color: rgba(245,158,11,.35); }
+
+    /* ── BODY LAYOUT ── */
+    .body-grid {
+      display: grid; grid-template-columns: 280px 1fr;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      background: var(--light);
+      border-right: 1px solid var(--border);
+      padding: 28px 24px;
+    }
+
+    /* ── MAIN ── */
+    .main { padding: 28px 32px; }
+
+    /* ── SECTION TITLE ── */
+    .sec-title {
+      font-size: .7rem; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--teal);
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--teal);
+      margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+    }
+    .sec-title .sec-icon { font-size: .95rem; }
+
+    /* ── SKILL BARS ── */
+    .skill-row { margin-bottom: 10px; }
+    .skill-top { display: flex; justify-content: space-between; margin-bottom: 4px; }
+    .skill-name { font-size: .78rem; font-weight: 500; color: var(--dark2); }
+    .skill-pct { font-size: .72rem; color: var(--teal); font-weight: 700; }
+    .skill-bar { height: 5px; background: #dde4ee; border-radius: 99px; overflow: hidden; }
+    .skill-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--teal), var(--teal-mid)); }
+
+    /* ── TAG CLOUD ── */
+    .tag-cloud { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 18px; }
+    .stag {
+      font-size: .72rem; font-weight: 600; padding: 3px 10px; border-radius: 99px;
+      background: #e8f5f3; color: var(--teal); border: 1px solid #b2ddd8;
+    }
+    .stag.amber { background: #fef3cd; color: #92650a; border-color: #f3d87a; }
+
+    /* ── SIDEBAR BLOCKS ── */
+    .sb-block { margin-bottom: 24px; }
+    .sb-label { font-size: .7rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 3px; }
+    .sb-value { font-size: .82rem; color: var(--dark2); line-height: 1.5; }
+    .sb-value a { color: var(--teal); }
+
+    /* ── EDUCATION ── */
+    .edu-item { margin-bottom: 14px; }
+    .edu-degree { font-size: .85rem; font-weight: 700; color: var(--dark2); }
+    .edu-school { font-size: .78rem; color: var(--muted); }
+    .edu-year { font-size: .72rem; color: var(--teal); font-weight: 600; }
+
+    /* ── CERTS ── */
+    .cert-item { font-size: .78rem; color: var(--dark2); margin-bottom: 6px; display: flex; gap: 7px; }
+    .cert-dot { color: var(--teal); font-weight: 700; flex-shrink: 0; }
+
+    /* ── EXPERIENCE ITEMS ── */
+    .exp-item { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+    .exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; }
+    .exp-role { font-size: .95rem; font-weight: 700; color: var(--dark); }
+    .exp-date {
+      font-size: .72rem; font-weight: 700; color: var(--teal);
+      background: var(--teal-lt); padding: 3px 10px; border-radius: 99px; white-space: nowrap;
+    }
+    .exp-date.current { background: #fef3cd; color: #92650a; }
+    .exp-company { font-size: .8rem; color: var(--muted); margin: 3px 0 10px; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+    .exp-bullets li { font-size: .82rem; color: var(--mid); line-height: 1.6; padding-left: 14px; position: relative; }
+    .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-size: .75rem; top: 2px; }
+
+    /* ── SUMMARY ── */
+    .summary-text { font-size: .85rem; color: var(--mid); line-height: 1.75; margin-bottom: 22px; }
+    .summary-text strong { color: var(--dark2); }
+
+    /* ── PROJECTS ── */
+    .proj-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .proj-card {
+      border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px;
+      background: var(--light);
+    }
+    .proj-name { font-size: .82rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .proj-desc { font-size: .75rem; color: var(--muted); line-height: 1.5; margin-bottom: 8px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+    .ptag { font-size: .68rem; background: #e8f5f3; color: var(--teal); border: 1px solid #b2ddd8; padding: 2px 7px; border-radius: 99px; }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .toolbar { display: none; }
+      .paper { box-shadow: none; border-radius: 0; max-width: 100%; }
+    }
+
+    @media (max-width: 680px) {
+      .body-grid { grid-template-columns: 1fr; }
+      .sidebar { border-right: none; border-bottom: 1px solid var(--border); }
+      .proj-grid { grid-template-columns: 1fr; }
+      .header-contact { align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <span class="toolbar-title">📄 Resume — Data Scientist &amp; MLOps Engineer</span>
+    <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+  </div>
+
+  <div class="paper">
+
+    <!-- ══ HEADER ══ -->
+    <div class="header">
+      <div class="header-top">
+        <div class="header-name-block">
+          <div class="header-name">Your Name</div>
+          <div class="header-role">Data Scientist &amp; MLOps Engineer</div>
+        </div>
+        <div class="header-contact">
+          <div class="contact-item"><span class="icon">📧</span> your@email.com</div>
+          <div class="contact-item"><span class="icon">📱</span> +254 700 000 000</div>
+          <div class="contact-item"><span class="icon">💼</span> linkedin.com/in/yourprofile</div>
+          <div class="contact-item"><span class="icon">🐙</span> github.com/yourusername</div>
+          <div class="contact-item"><span class="icon">📍</span> Nairobi, Kenya</div>
+        </div>
+      </div>
+      <div class="header-tags">
+        <span class="htag">🌍 Open to Remote</span>
+        <span class="htag">Europe &amp; Worldwide</span>
+        <span class="htag accent">1 Year Experience</span>
+        <span class="htag">Python · ML · MLOps · AWS</span>
+      </div>
+    </div>
+
+    <!-- ══ BODY ══ -->
+    <div class="body-grid">
+
+      <!-- ── SIDEBAR ── -->
+      <div class="sidebar">
+
+        <!-- Skills -->
+        <div class="sb-block">
+          <div class="sec-title"><span class="sec-icon">⚡</span> Core Skills</div>
+          <div class="skill-row"><div class="skill-top"><span class="skill-name">Python &amp; Data Libraries</span><span class="skill-pct">88%</span></div><div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div></div>
+          <div class="skill-row"><div class="skill-top"><span class="skill-name">Machine Learning</span><span class="skill-pct">82%</span></div><div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div></div>
+          <div class="skill-row"><div class="skill-top"><span class="skill-name">SQL &amp; Data Analysis</span><span class="skill-pct">85%</span></div><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+          <div class="skill-row"><div class="skill-top"><span class="skill-name">MLOps &amp; CI/CD</span><span class="skill-pct">75%</span></div><div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div></div>
+          <div class="skill-row"><div class="skill-top"><span class="skill-name">Docker &amp; Kubernetes</span><span class="skill-pct">72%</span></div><div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div></div>
+          <div class="skill-row"><div class="skill-top"><span class="skill-name">AWS Cloud</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+          <div class="skill-row"><div class="skill-top"><span class="skill-name">Model Monitoring</span><span class="skill-pct">70%</span></div><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+        </div>
+
+        <!-- Tools -->
+        <div class="sb-block">
+          <div class="sec-title"><span class="sec-icon">🛠️</span> Tools &amp; Frameworks</div>
+          <div class="tag-cloud">
+            <span class="stag">Scikit-learn</span>
+            <span class="stag">TensorFlow</span>
+            <span class="stag">XGBoost</span>
+            <span class="stag">LightGBM</span>
+            <span class="stag">HuggingFace</span>
+            <span class="stag">MLflow</span>
+            <span class="stag">DVC</span>
+            <span class="stag">ZenML</span>
+            <span class="stag">Prefect</span>
+            <span class="stag amber">GitHub Actions</span>
+            <span class="stag">FastAPI</span>
+            <span class="stag">Streamlit</span>
+            <span class="stag">Evidently AI</span>
+            <span class="stag">Prometheus</span>
+            <span class="stag">Grafana</span>
+            <span class="stag">Pandas</span>
+            <span class="stag">NumPy</span>
+            <span class="stag">Power BI</span>
+            <span class="stag">Plotly</span>
+            <span class="stag amber">Docker</span>
+            <span class="stag amber">Kubernetes</span>
+            <span class="stag amber">AWS SageMaker</span>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="sb-block">
+          <div class="sec-title"><span class="sec-icon">🎓</span> Education</div>
+          <div class="edu-item">
+            <div class="edu-degree">B.Sc. Computer Science</div>
+            <div class="edu-school">University of Nairobi</div>
+            <div class="edu-year">2023</div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="sb-block">
+          <div class="sec-title"><span class="sec-icon">📜</span> Certifications</div>
+          <div class="cert-item"><span class="cert-dot">▸</span> AWS Certified ML Specialty</div>
+          <div class="cert-item"><span class="cert-dot">▸</span> MLOps Specialization — DeepLearning.AI</div>
+          <div class="cert-item"><span class="cert-dot">▸</span> Deep Learning Specialization — DeepLearning.AI</div>
+          <div class="cert-item"><span class="cert-dot">▸</span> Docker &amp; Kubernetes Fundamentals</div>
+          <div class="cert-item"><span class="cert-dot">▸</span> Data Science Professional Certificate — IBM</div>
+        </div>
+
+        <!-- Languages -->
+        <div class="sb-block">
+          <div class="sec-title"><span class="sec-icon">🗣️</span> Languages</div>
+          <div class="cert-item"><span class="cert-dot">▸</span> English — Fluent</div>
+          <div class="cert-item"><span class="cert-dot">▸</span> Swahili — Native</div>
+        </div>
+
+      </div>
+
+      <!-- ── MAIN ── -->
+      <div class="main">
+
+        <!-- Summary -->
+        <div class="sec-title"><span class="sec-icon">👤</span> Professional Summary</div>
+        <p class="summary-text">
+          Results-driven <strong>Data Scientist &amp; MLOps Engineer</strong> with <strong>1 year of hands-on experience</strong>
+          across data analysis, machine learning model development, and production deployment pipelines.
+          Skilled in the full ML lifecycle — from EDA and feature engineering to containerized model serving,
+          CI/CD automation, and real-time monitoring. Actively seeking <strong>remote opportunities in Europe
+          and worldwide</strong> to contribute to data-driven teams building impactful ML systems.
+        </p>
+
+        <!-- Experience -->
+        <div class="sec-title" style="margin-top:4px"><span class="sec-icon">💼</span> Work Experience</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Junior MLOps Engineer</div>
+              <div class="exp-company">🏢 Company Name · Full-time</div>
+            </div>
+            <span class="exp-date current">2025 – Present</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Building and maintaining ML deployment pipelines using MLflow, Docker, and AWS SageMaker.</li>
+            <li>Implementing CI/CD workflows with GitHub Actions to automate model training and deployment.</li>
+            <li>Setting up real-time model monitoring with Evidently AI and Grafana dashboards to track drift and performance.</li>
+            <li>Collaborating with data scientists to package models as FastAPI microservices and manage versioning with DVC.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Data Analyst</div>
+              <div class="exp-company">🏢 Company Name · Full-time</div>
+            </div>
+            <span class="exp-date">2024 – 2025</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Conducted end-to-end data analysis on large structured datasets using Python and SQL.</li>
+            <li>Built interactive dashboards and business reports in Power BI and Streamlit for stakeholders.</li>
+            <li>Applied statistical modelling and EDA techniques to identify trends and support data-driven decisions.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div>
+              <div class="exp-role">Junior Data Analyst</div>
+              <div class="exp-company">🏢 Company Name · Full-time</div>
+            </div>
+            <span class="exp-date">2023 – 2024</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Performed exploratory data analysis and statistical reporting across multiple business datasets.</li>
+            <li>Cleaned, transformed, and visualized data using Pandas, NumPy, and Plotly.</li>
+            <li>Maintained automated data pipelines using Python and PostgreSQL, reducing manual effort significantly.</li>
+          </ul>
+        </div>
+
+        <!-- Projects -->
+        <div class="sec-title"><span class="sec-icon">🚀</span> Key Projects</div>
+        <div class="proj-grid">
+          <div class="proj-card">
+            <div class="proj-name">🏭 ML Deployment Pipeline</div>
+            <div class="proj-desc">End-to-end automated retraining &amp; deployment on AWS SageMaker with drift monitoring.</div>
+            <div class="proj-tags"><span class="ptag">MLflow</span><span class="ptag">Docker</span><span class="ptag">GitHub Actions</span></div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-name">📈 Churn Predictor</div>
+            <div class="proj-desc">XGBoost model with SHAP explainability &amp; Streamlit dashboard for business users.</div>
+            <div class="proj-tags"><span class="ptag">XGBoost</span><span class="ptag">SHAP</span><span class="ptag">Streamlit</span></div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-name">🔐 Fraud Detection</div>
+            <div class="proj-desc">Real-time LightGBM inference via FastAPI with Prometheus &amp; Grafana monitoring.</div>
+            <div class="proj-tags"><span class="ptag">LightGBM</span><span class="ptag">FastAPI</span><span class="ptag">Prometheus</span></div>
+          </div>
+          <div class="proj-card">
+            <div class="proj-name">💬 NLP Sentiment Analyser</div>
+            <div class="proj-desc">HuggingFace transformer pipeline with MLflow tracking &amp; Streamlit demo.</div>
+            <div class="proj-tags"><span class="ptag">HuggingFace</span><span class="ptag">MLflow</span><span class="ptag">Streamlit</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV — Your Name | Data Scientist & MLOps Engineer</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:     #0d9488;
+      --teal2:    #14b8a6;
+      --teal-lt:  #e6faf8;
+      --dark:     #0f172a;
+      --dark2:    #1e293b;
+      --mid:      #475569;
+      --muted:    #64748b;
+      --light:    #f8fafc;
+      --border:   #e2e8f0;
+      --accent:   #f59e0b;
+      --white:    #ffffff;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #dce3ec;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 30px 16px 70px;
+    }
+
+    /* ── TOOLBAR ── */
+    .toolbar {
+      width: 100%; max-width: 900px;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 18px;
+    }
+    .toolbar-title { font-size: .85rem; color: #64748b; font-weight: 500; }
+    .print-btn {
+      background: linear-gradient(135deg, var(--teal), var(--teal2));
+      color: #fff; border: none; padding: 9px 22px; border-radius: 8px;
+      font-size: .84rem; font-weight: 600; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(13,148,136,.35); transition: all .2s;
+    }
+    .print-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,148,136,.5); }
+
+    /* ── PAPER ── */
+    .paper { width: 100%; max-width: 900px; background: var(--white); border-radius: 4px; box-shadow: 0 10px 50px rgba(0,0,0,.15); overflow: hidden; }
+
+    /* ══ TOP BANNER ══ */
+    .top-banner {
+      background: linear-gradient(135deg, var(--dark) 0%, #152040 60%, #0d2a3a 100%);
+      padding: 0;
+      display: grid; grid-template-columns: 1fr auto;
+      position: relative; overflow: hidden;
+    }
+    .top-banner::before {
+      content: ''; position: absolute; right: -80px; top: -80px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,148,136,.18) 0%, transparent 70%);
+    }
+    .top-banner::after {
+      content: ''; position: absolute; left: -40px; bottom: -80px;
+      width: 200px; height: 200px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(13,148,136,.1) 0%, transparent 70%);
+    }
+    .banner-left { padding: 40px 44px; position: relative; z-index: 1; }
+    .banner-name { font-size: 2.5rem; font-weight: 800; color: #fff; letter-spacing: -.5px; line-height: 1; }
+    .banner-role { font-size: 1.05rem; color: var(--teal2); font-weight: 500; margin: 8px 0 20px; }
+    .banner-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btag {
+      font-size: .72rem; font-weight: 700; letter-spacing: .8px;
+      padding: 5px 14px; border-radius: 99px;
+      background: rgba(13,148,136,.2); color: var(--teal2);
+      border: 1px solid rgba(13,148,136,.35);
+    }
+    .btag.amber { background: rgba(245,158,11,.15); color: var(--accent); border-color: rgba(245,158,11,.35); }
+    .banner-right {
+      padding: 40px 44px 40px 10px; display: flex; flex-direction: column;
+      justify-content: center; gap: 10px; position: relative; z-index: 1;
+    }
+    .bcontact { display: flex; align-items: center; gap: 9px; font-size: .8rem; color: #94a3b8; }
+    .bcontact span.ico { font-size: .9rem; }
+    .bcontact a { color: var(--teal2); }
+
+    /* ══ SECTION ══ */
+    .cv-body { padding: 36px 44px; }
+
+    .cv-section { margin-bottom: 36px; }
+    .cv-sec-title {
+      font-size: .72rem; font-weight: 800; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--teal);
+      border-bottom: 2px solid var(--teal);
+      padding-bottom: 7px; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .cv-sec-title span { font-size: 1rem; }
+
+    /* ── PROFILE ── */
+    .profile-box {
+      background: var(--teal-lt);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 10px 10px 0;
+      padding: 18px 22px;
+      font-size: .88rem; color: var(--dark2); line-height: 1.8;
+    }
+    .profile-box strong { color: var(--teal); }
+
+    /* ── TWO-COL LAYOUT ── */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+    /* ── EXPERIENCE ── */
+    .exp-card {
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 20px 22px; margin-bottom: 16px;
+      position: relative; overflow: hidden;
+      transition: border-color .2s;
+    }
+    .exp-card::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 4px; background: linear-gradient(180deg, var(--teal), var(--teal2));
+      border-radius: 4px 0 0 4px;
+    }
+    .exp-card.current::before { background: linear-gradient(180deg, var(--accent), #fbbf24); }
+    .exp-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+    .exp-role { font-size: .98rem; font-weight: 700; color: var(--dark); }
+    .exp-badge {
+      font-size: .7rem; font-weight: 700; padding: 3px 12px; border-radius: 99px;
+      background: var(--teal-lt); color: var(--teal); white-space: nowrap;
+    }
+    .exp-badge.current { background: #fef3cd; color: #92650a; }
+    .exp-meta { font-size: .8rem; color: var(--muted); margin-bottom: 12px; }
+    .exp-meta strong { color: var(--dark2); }
+    .exp-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .exp-list li { font-size: .83rem; color: var(--mid); line-height: 1.65; padding-left: 16px; position: relative; }
+    .exp-list li::before { content: '▸'; position: absolute; left: 0; color: var(--teal); font-size: .75rem; top: 2px; }
+
+    /* ── SKILLS GRID ── */
+    .skill-category { margin-bottom: 20px; }
+    .skill-cat-title { font-size: .78rem; font-weight: 700; color: var(--dark2); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .skill-tag-wrap { display: flex; flex-wrap: wrap; gap: 6px; }
+    .sk-tag {
+      font-size: .74rem; font-weight: 600; padding: 4px 12px; border-radius: 99px;
+      background: #e8f5f3; color: var(--teal); border: 1px solid #b2ddd8;
+    }
+    .sk-tag.amber { background: #fef3cd; color: #92650a; border-color: #f3d87a; }
+    .sk-tag.purple { background: #f3f0ff; color: #7c3aed; border-color: #c4b5fd; }
+
+    /* ── PROFICIENCY ── */
+    .prof-row { margin-bottom: 12px; }
+    .prof-top { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .prof-name { font-size: .82rem; font-weight: 600; color: var(--dark2); }
+    .prof-pct { font-size: .75rem; font-weight: 700; color: var(--teal); }
+    .prof-bar { height: 6px; background: #dde4ee; border-radius: 99px; overflow: hidden; }
+    .prof-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--teal), var(--teal2)); }
+
+    /* ── PROJECTS ── */
+    .proj-card {
+      border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px;
+      background: var(--light); transition: border-color .2s;
+    }
+    .proj-card:hover { border-color: var(--teal); }
+    .proj-emoji { font-size: 1.6rem; margin-bottom: 8px; }
+    .proj-name { font-size: .9rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+    .proj-desc { font-size: .79rem; color: var(--muted); line-height: 1.6; margin-bottom: 10px; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .pt { font-size: .69rem; background: #e8f5f3; color: var(--teal); border: 1px solid #b2ddd8; padding: 2px 8px; border-radius: 99px; }
+
+    /* ── EDUCATION ── */
+    .edu-card {
+      display: flex; gap: 16px; padding: 18px 20px;
+      border: 1px solid var(--border); border-radius: 12px; align-items: flex-start;
+    }
+    .edu-icon { font-size: 2rem; flex-shrink: 0; }
+    .edu-degree { font-size: .92rem; font-weight: 700; color: var(--dark); }
+    .edu-school { font-size: .82rem; color: var(--muted); margin: 3px 0; }
+    .edu-year { font-size: .75rem; font-weight: 700; color: var(--teal); background: var(--teal-lt); padding: 2px 10px; border-radius: 99px; display: inline-block; }
+
+    /* ── CERTS ── */
+    .cert-card {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 14px 16px; border: 1px solid var(--border);
+      border-radius: 10px; background: var(--light);
+      transition: border-color .2s;
+    }
+    .cert-card:hover { border-color: var(--teal); }
+    .cert-ico { font-size: 1.5rem; flex-shrink: 0; }
+    .cert-name { font-size: .82rem; font-weight: 700; color: var(--dark); }
+    .cert-issuer { font-size: .74rem; color: var(--muted); }
+
+    /* ── ACHIEVEMENTS ── */
+    .ach-list { display: flex; flex-direction: column; gap: 10px; }
+    .ach-item { display: flex; gap: 12px; align-items: flex-start; }
+    .ach-num { font-size: 1.3rem; font-weight: 800; color: var(--teal); min-width: 44px; }
+    .ach-text { font-size: .83rem; color: var(--mid); line-height: 1.6; padding-top: 4px; }
+
+    /* ── LANGUAGES / SOFT SKILLS ── */
+    .lang-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .lang-name { font-size: .83rem; font-weight: 600; color: var(--dark2); }
+    .lang-dots { display: flex; gap: 4px; }
+    .ldot { width: 10px; height: 10px; border-radius: 50%; background: #dde4ee; }
+    .ldot.on { background: var(--teal); }
+    .soft-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .soft-tag { font-size: .75rem; font-weight: 600; padding: 5px 14px; border-radius: 99px; background: #f1f5f9; color: var(--dark2); border: 1px solid var(--border); }
+
+    /* ── AVAILABILITY BANNER ── */
+    .avail-banner {
+      background: linear-gradient(135deg, rgba(13,148,136,.08), rgba(245,158,11,.06));
+      border: 1.5px solid rgba(13,148,136,.25);
+      border-radius: 12px; padding: 20px 24px;
+      display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+    }
+    .avail-icon { font-size: 2rem; }
+    .avail-text h4 { font-size: .92rem; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+    .avail-text p { font-size: .8rem; color: var(--muted); line-height: 1.55; }
+    .avail-text p strong { color: var(--teal); }
+
+    /* ── FOOTER ── */
+    .cv-footer {
+      background: var(--dark); color: #94a3b8;
+      text-align: center; padding: 16px 24px;
+      font-size: .75rem; border-top: 3px solid var(--teal);
+    }
+    .cv-footer span { color: var(--teal2); }
+
+    /* ── PRINT ── */
+    @media print {
+      body { background: #fff; padding: 0; }
+      .toolbar { display: none; }
+      .paper { box-shadow: none; border-radius: 0; max-width: 100%; }
+    }
+
+    @media (max-width: 700px) {
+      .two-col, .three-col { grid-template-columns: 1fr; }
+      .top-banner { grid-template-columns: 1fr; }
+      .banner-right { padding: 0 44px 36px; }
+      .cv-body { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="toolbar">
+    <span class="toolbar-title">📋 Curriculum Vitae — Data Scientist &amp; MLOps Engineer</span>
+    <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+  </div>
+
+  <div class="paper">
+
+    <!-- ══ TOP BANNER ══ -->
+    <div class="top-banner">
+      <div class="banner-left">
+        <div class="banner-name">Your Name</div>
+        <div class="banner-role">Data Scientist &amp; MLOps Engineer</div>
+        <div class="banner-tags">
+          <span class="btag amber">🌍 Open to Remote — Europe &amp; Worldwide</span>
+          <span class="btag">1 Year Experience</span>
+          <span class="btag">Python · ML · MLOps · AWS</span>
+        </div>
+      </div>
+      <div class="banner-right">
+        <div class="bcontact"><span class="ico">📧</span> your@email.com</div>
+        <div class="bcontact"><span class="ico">📱</span> +254 700 000 000</div>
+        <div class="bcontact"><span class="ico">📍</span> Nairobi, Kenya</div>
+        <div class="bcontact"><span class="ico">💼</span> <a href="#">linkedin.com/in/yourprofile</a></div>
+        <div class="bcontact"><span class="ico">🐙</span> <a href="#">github.com/yourusername</a></div>
+        <div class="bcontact"><span class="ico">📊</span> <a href="#">kaggle.com/yourusername</a></div>
+      </div>
+    </div>
+
+    <div class="cv-body">
+
+      <!-- ══ PROFESSIONAL PROFILE ══ -->
+      <div class="cv-section">
+        <div class="cv-sec-title"><span>👤</span> Professional Profile</div>
+        <div class="profile-box">
+          I am a dedicated <strong>Data Scientist and MLOps Engineer</strong> with <strong>1 year of professional experience</strong>
+          spanning data analysis, machine learning model development, and production ML deployment pipelines.
+          My work covers the full ML lifecycle — from exploratory data analysis, feature engineering, and model training,
+          through to containerized model serving, CI/CD automation, and real-time monitoring with modern MLOps tools.
+          I am <strong>actively seeking remote opportunities in Europe and worldwide</strong>, bringing a strong
+          analytical mindset, clean coding practices, and a passion for building reliable, scalable data-driven systems.
+        </div>
+      </div>
+
+      <!-- ══ WORK EXPERIENCE ══ -->
+      <div class="cv-section">
+        <div class="cv-sec-title"><span>💼</span> Work Experience</div>
+
+        <!-- Role 1: Current -->
+        <div class="exp-card current">
+          <div class="exp-card-header">
+            <div class="exp-role">Junior MLOps Engineer</div>
+            <span class="exp-badge current">2025 – Present · Current Role</span>
+          </div>
+          <div class="exp-meta"><strong>Company Name</strong> &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Nairobi, Kenya (Remote-friendly)</div>
+          <ul class="exp-list">
+            <li>Designed and maintained end-to-end ML deployment pipelines using MLflow, Docker, and AWS SageMaker, reducing model release cycles significantly.</li>
+            <li>Implemented CI/CD automation workflows with GitHub Actions to enable continuous model training, testing, and deployment.</li>
+            <li>Set up real-time model monitoring using Evidently AI and Grafana dashboards to track data drift and model performance degradation.</li>
+            <li>Managed model and dataset versioning using DVC, ensuring full experiment reproducibility across development environments.</li>
+            <li>Packaged trained models as FastAPI RESTful microservices, containerized with Docker, and deployed on Kubernetes clusters.</li>
+            <li>Collaborated closely with data scientists to bridge the gap between research experimentation and production-grade deployment.</li>
+          </ul>
+        </div>
+
+        <!-- Role 2 -->
+        <div class="exp-card">
+          <div class="exp-card-header">
+            <div class="exp-role">Data Analyst</div>
+            <span class="exp-badge">2024 – 2025</span>
+          </div>
+          <div class="exp-meta"><strong>Company Name</strong> &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Nairobi, Kenya</div>
+          <ul class="exp-list">
+            <li>Conducted comprehensive end-to-end data analysis on large structured datasets using Python (Pandas, NumPy) and SQL.</li>
+            <li>Designed and delivered interactive business intelligence dashboards using Power BI and Streamlit, enabling data-driven decision-making.</li>
+            <li>Applied advanced statistical modelling and EDA techniques to surface actionable trends and forecast key business metrics.</li>
+            <li>Authored detailed analytical reports and presented findings to non-technical stakeholders and senior management.</li>
+            <li>Standardized data cleaning and transformation workflows, improving team-wide data quality and processing efficiency.</li>
+          </ul>
+        </div>
+
+        <!-- Role 3 -->
+        <div class="exp-card">
+          <div class="exp-card-header">
+            <div class="exp-role">Junior Data Analyst</div>
+            <span class="exp-badge">2023 – 2024</span>
+          </div>
+          <div class="exp-meta"><strong>Company Name</strong> &nbsp;·&nbsp; Full-time &nbsp;·&nbsp; Nairobi, Kenya</div>
+          <ul class="exp-list">
+            <li>Performed exploratory data analysis (EDA) and statistical reporting across multiple business datasets to support operational decisions.</li>
+            <li>Cleaned, transformed, and visualized data using Pandas, NumPy, and Plotly, ensuring accuracy and consistency across datasets.</li>
+            <li>Built and maintained automated data pipelines using Python and PostgreSQL, eliminating repetitive manual processes.</li>
+            <li>Collaborated with cross-functional teams to deliver weekly data insight reports and track key performance indicators (KPIs).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ══ SKILLS ══ -->
+      <div class="cv-section">
+        <div class="cv-sec-title"><span>⚡</span> Technical Skills</div>
+        <div class="two-col">
+          <div>
+            <div class="skill-category">
+              <div class="skill-cat-title">🐍 Programming &amp; Data</div>
+              <div class="skill-tag-wrap">
+                <span class="sk-tag">Python</span><span class="sk-tag">SQL</span><span class="sk-tag">R</span>
+                <span class="sk-tag">Pandas</span><span class="sk-tag">NumPy</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <div class="skill-cat-title">🧠 Machine Learning &amp; AI</div>
+              <div class="skill-tag-wrap">
+                <span class="sk-tag">Scikit-learn</span><span class="sk-tag">TensorFlow</span>
+                <span class="sk-tag">XGBoost</span><span class="sk-tag">LightGBM</span><span class="sk-tag">HuggingFace</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <div class="skill-cat-title">⚙️ MLOps &amp; DevOps</div>
+              <div class="skill-tag-wrap">
+                <span class="sk-tag amber">MLflow</span><span class="sk-tag amber">DVC</span>
+                <span class="sk-tag amber">ZenML</span><span class="sk-tag amber">Prefect</span>
+                <span class="sk-tag amber">GitHub Actions</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="skill-category">
+              <div class="skill-cat-title">☁️ Cloud &amp; Infrastructure</div>
+              <div class="skill-tag-wrap">
+                <span class="sk-tag purple">AWS SageMaker</span><span class="sk-tag purple">AWS S3</span>
+                <span class="sk-tag purple">AWS Lambda</span><span class="sk-tag purple">Docker</span>
+                <span class="sk-tag purple">Kubernetes</span><span class="sk-tag purple">Terraform</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <div class="skill-cat-title">📊 Analysis &amp; Visualization</div>
+              <div class="skill-tag-wrap">
+                <span class="sk-tag">PostgreSQL</span><span class="sk-tag">MongoDB</span>
+                <span class="sk-tag">Plotly / Dash</span><span class="sk-tag">Power BI</span><span class="sk-tag">Streamlit</span>
+              </div>
+            </div>
+            <div class="skill-category">
+              <div class="skill-cat-title">🔍 Model Serving &amp; Monitoring</div>
+              <div class="skill-tag-wrap">
+                <span class="sk-tag">FastAPI</span><span class="sk-tag">Evidently AI</span>
+                <span class="sk-tag">Prometheus</span><span class="sk-tag">Grafana</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Proficiency Bars -->
+        <div style="margin-top: 16px;">
+          <div class="prof-row"><div class="prof-top"><span class="prof-name">Python &amp; Data Science Libraries</span><span class="prof-pct">88%</span></div><div class="prof-bar"><div class="prof-fill" style="width:88%"></div></div></div>
+          <div class="prof-row"><div class="prof-top"><span class="prof-name">SQL &amp; Data Analysis</span><span class="prof-pct">85%</span></div><div class="prof-bar"><div class="prof-fill" style="width:85%"></div></div></div>
+          <div class="prof-row"><div class="prof-top"><span class="prof-name">Machine Learning &amp; Model Development</span><span class="prof-pct">82%</span></div><div class="prof-bar"><div class="prof-fill" style="width:82%"></div></div></div>
+          <div class="prof-row"><div class="prof-top"><span class="prof-name">MLOps Pipelines &amp; CI/CD</span><span class="prof-pct">75%</span></div><div class="prof-bar"><div class="prof-fill" style="width:75%"></div></div></div>
+          <div class="prof-row"><div class="prof-top"><span class="prof-name">Docker &amp; Kubernetes</span><span class="prof-pct">72%</span></div><div class="prof-bar"><div class="prof-fill" style="width:72%"></div></div></div>
+          <div class="prof-row"><div class="prof-top"><span class="prof-name">AWS Cloud Platform</span><span class="prof-pct">70%</span></div><div class="prof-bar"><div class="prof-fill" style="width:70%"></div></div></div>
+        </div>
+      </div>
+
+      <!-- ══ PROJECTS ══ -->
+      <div class="cv-section">
+        <div class="cv-sec-title"><span>🚀</span> Featured Projects</div>
+        <div class="two-col">
+
+          <div class="proj-card">
+            <div class="proj-emoji">🏭</div>
+            <div class="proj-name">ML Model Deployment Pipeline</div>
+            <div class="proj-desc">End-to-end ML pipeline with automated retraining, model versioning, and drift detection deployed on AWS SageMaker with GitHub Actions CI/CD.</div>
+            <div class="proj-tags"><span class="pt">MLflow</span><span class="pt">AWS SageMaker</span><span class="pt">Docker</span><span class="pt">GitHub Actions</span><span class="pt">Grafana</span></div>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-emoji">📈</div>
+            <div class="proj-name">Customer Churn Predictor</div>
+            <div class="proj-desc">XGBoost ensemble model with SHAP explainability and a Streamlit front-end for business users, with automated weekly retraining workflow.</div>
+            <div class="proj-tags"><span class="pt">XGBoost</span><span class="pt">SHAP</span><span class="pt">Streamlit</span><span class="pt">Scikit-learn</span><span class="pt">AWS S3</span></div>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-emoji">🔐</div>
+            <div class="proj-name">Fraud Detection System</div>
+            <div class="proj-desc">Real-time fraud detection with LightGBM served through FastAPI with Prometheus and Grafana monitoring stack for full observability.</div>
+            <div class="proj-tags"><span class="pt">LightGBM</span><span class="pt">FastAPI</span><span class="pt">Prometheus</span><span class="pt">Evidently AI</span><span class="pt">Docker</span></div>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-emoji">🖼️</div>
+            <div class="proj-name">Computer Vision Classifier</div>
+            <div class="proj-desc">Image classification with TensorFlow and transfer learning, served via FastAPI with Docker containerization and DVC for dataset versioning.</div>
+            <div class="proj-tags"><span class="pt">TensorFlow</span><span class="pt">FastAPI</span><span class="pt">Docker</span><span class="pt">OpenCV</span><span class="pt">DVC</span></div>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-emoji">💬</div>
+            <div class="proj-name">NLP Sentiment Analyser</div>
+            <div class="proj-desc">Text classification pipeline for sentiment analysis on customer reviews using HuggingFace transformers with MLflow experiment tracking.</div>
+            <div class="proj-tags"><span class="pt">HuggingFace</span><span class="pt">Scikit-learn</span><span class="pt">MLflow</span><span class="pt">Streamlit</span></div>
+          </div>
+
+          <div class="proj-card">
+            <div class="proj-emoji">📊</div>
+            <div class="proj-name">Automated EDA Dashboard</div>
+            <div class="proj-desc">Reusable automated EDA tool that generates interactive visual reports for any tabular dataset using Pandas, Plotly, and Streamlit.</div>
+            <div class="proj-tags"><span class="pt">Pandas</span><span class="pt">Plotly</span><span class="pt">Streamlit</span><span class="pt">NumPy</span><span class="pt">SQL</span></div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ══ EDUCATION ══ -->
+      <div class="cv-section">
+        <div class="cv-sec-title"><span>🎓</span> Education</div>
+        <div class="two-col">
+          <div class="edu-card">
+            <div class="edu-icon">🎓</div>
+            <div>
+              <div class="edu-degree">B.Sc. Computer Science</div>
+              <div class="edu-school">University of Nairobi · Kenya</div>
+              <div style="margin-top:6px"><span class="edu-year">Graduated 2023</span></div>
+              <div style="margin-top:8px; font-size:.78rem; color:var(--muted)">Relevant: Machine Learning, Algorithms, Database Systems, Statistics, Software Engineering</div>
+            </div>
+          </div>
+          <div class="edu-card">
+            <div class="edu-icon">📚</div>
+            <div>
+              <div class="edu-degree">Self-Directed Learning</div>
+              <div class="edu-school">Coursera · DeepLearning.AI · Kaggle · AWS Training</div>
+              <div style="margin-top:6px"><span class="edu-year">2023 – 2025</span></div>
+              <div style="margin-top:8px; font-size:.78rem; color:var(--muted)">Specializations in ML, Deep Learning, MLOps, and Cloud Engineering.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ CERTIFICATIONS ══ -->
+      <div class="cv-section">
+        <div class="cv-sec-title"><span>📜</span> Certifications</div>
+        <div class="three-col">
+          <div class="cert-card">
+            <div class="cert-ico">☁️</div>
+            <div>
+              <div class="cert-name">AWS Certified ML Specialty</div>
+              <div class="cert-issuer">Amazon Web Services · 2024</div>
+            </div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-ico">⚙️</div>
+            <div>
+              <div class="cert-name">MLOps Specialization</div>
+              <div class="cert-issuer">DeepLearning.AI / Coursera · 2025</div>
+            </div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-ico">🧠</div>
+            <div>
+              <div class="cert-name">Deep Learning Specialization</div>
+              <div class="cert-issuer">DeepLearning.AI / Coursera · 2024</div>
+            </div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-ico">🐳</div>
+            <div>
+              <div class="cert-name">Docker &amp; Kubernetes Fundamentals</div>
+              <div class="cert-issuer">Linux Foundation · 2024</div>
+            </div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-ico">📊</div>
+            <div>
+              <div class="cert-name">Data Science Professional Certificate</div>
+              <div class="cert-issuer">IBM / Coursera · 2023</div>
+            </div>
+          </div>
+          <div class="cert-card">
+            <div class="cert-ico">🏅</div>
+            <div>
+              <div class="cert-name">Machine Learning with Python</div>
+              <div class="cert-issuer">freeCodeCamp · 2023</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ KEY ACHIEVEMENTS ══ -->
+      <div class="cv-section">
+        <div class="cv-sec-title"><span>🏆</span> Key Achievements</div>
+        <div class="ach-list">
+          <div class="ach-item">
+            <div class="ach-num">60%</div>
+            <div class="ach-text">Reduced model deployment cycle time by automating CI/CD pipelines using GitHub Actions and Docker, enabling faster iteration and more reliable releases.</div>
+          </div>
+          <div class="ach-item">
+            <div class="ach-num">6+</div>
+            <div class="ach-text">End-to-end ML projects completed — spanning churn prediction, fraud detection, computer vision, NLP, and automated EDA — all with production-ready deployment.</div>
+          </div>
+          <div class="ach-item">
+            <div class="ach-num">5+</div>
+            <div class="ach-text">Professional certifications earned in ML, MLOps, Deep Learning, Docker/Kubernetes, and Cloud — reflecting commitment to continuous skill development.</div>
+          </div>
+          <div class="ach-item">
+            <div class="ach-num">100%</div>
+            <div class="ach-text">Self-taught MLOps stack — independently mastered tools including MLflow, DVC, ZenML, Evidently AI, Prometheus, and Grafana alongside a formal CS degree.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ LANGUAGES & SOFT SKILLS ══ -->
+      <div class="cv-section">
+        <div class="cv-sec-title"><span>🗣️</span> Languages &amp; Soft Skills</div>
+        <div class="two-col">
+          <div>
+            <div style="margin-bottom:14px; font-size:.78rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px;">Languages</div>
+            <div class="lang-item">
+              <span class="lang-name">English</span>
+              <div class="lang-dots">
+                <div class="ldot on"></div><div class="ldot on"></div><div class="ldot on"></div><div class="ldot on"></div><div class="ldot on"></div>
+              </div>
+            </div>
+            <div class="lang-item">
+              <span class="lang-name">Swahili</span>
+              <div class="lang-dots">
+                <div class="ldot on"></div><div class="ldot on"></div><div class="ldot on"></div><div class="ldot on"></div><div class="ldot on"></div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div style="margin-bottom:14px; font-size:.78rem; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:1px;">Soft Skills</div>
+            <div class="soft-tags">
+              <span class="soft-tag">Analytical Thinking</span>
+              <span class="soft-tag">Problem Solving</span>
+              <span class="soft-tag">Team Collaboration</span>
+              <span class="soft-tag">Fast Learner</span>
+              <span class="soft-tag">Attention to Detail</span>
+              <span class="soft-tag">Remote-Ready</span>
+              <span class="soft-tag">Clear Communication</span>
+              <span class="soft-tag">Self-Motivated</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ AVAILABILITY ══ -->
+      <div class="cv-section" style="margin-bottom:0">
+        <div class="cv-sec-title"><span>🌍</span> Availability &amp; Work Preferences</div>
+        <div class="avail-banner">
+          <div class="avail-icon">🌍</div>
+          <div class="avail-text">
+            <h4>Open to Remote Opportunities — Europe &amp; Worldwide</h4>
+            <p>
+              I am actively seeking <strong>full-time, part-time, or contract remote roles</strong> as a
+              Data Scientist or MLOps Engineer with teams across <strong>Europe and globally</strong>.
+              Available immediately. Comfortable with asynchronous workflows, international time zones,
+              and cross-functional remote teams. Eligible to work remotely from Kenya with no restrictions.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /cv-body -->
+
+    <!-- ══ FOOTER ══ -->
+    <div class="cv-footer">
+      <span>Your Name</span> &nbsp;·&nbsp; Data Scientist &amp; MLOps Engineer &nbsp;·&nbsp;
+      your@email.com &nbsp;·&nbsp; 🌍 Open to Remote · Europe &amp; Worldwide &nbsp;·&nbsp; 2026
+    </div>
+
+  </div><!-- /paper -->
+
+</body>
+</html>
